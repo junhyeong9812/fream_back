@@ -17,20 +17,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "WISHES")
+@SequenceGenerator(name = "wish_seq_gen", sequenceName = "WISH_SEQ", allocationSize = 1)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Wish {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wish_seq_gen")
-    @SequenceGenerator(name = "wish_seq_gen", sequenceName = "WISH_SEQ", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "USERID")
+    @JoinColumn(name = "user_id", referencedColumnName = "USERID",
+            foreignKey = @ForeignKey(name = "FK_WISH_USER"))
     @JsonBackReference
     private UserListDTO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "prid", referencedColumnName = "PRID",
+            foreignKey = @ForeignKey(name = "FK_WISH_PRODUCT"))
     @JsonBackReference
     private Product product;
 
