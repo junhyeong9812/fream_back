@@ -62,6 +62,7 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public Optional<UserListDTO> changeUserName(String userid, String userName) {
         Optional<UserListDTO> userList = userListRepository.findByUserId(userid);
+//        userList.get().getUser
         userList.get().setUserName(userName);
         userListRepository.save(userList.get());
         log.info(userList.get());
