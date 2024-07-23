@@ -157,6 +157,10 @@ public class UserListDTO implements UserDetails {
     }
 
 
+    public @NotNull @Size(max = 100) String getUserName() {
+        return userName;
+    }
+
     public UserListDTO(int ulid, @NotNull @Size(max = 50) String userId, @NotNull @Size(max = 100) String userPw,
                        @NotNull @Size(max = 100) String userName, LocalDate joinDate, LocalDateTime lastLoginTime,
                        @NotNull @Size(max = 50) String gender, @NotNull int age,
