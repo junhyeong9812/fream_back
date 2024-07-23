@@ -22,10 +22,13 @@ public class ReadLineContext<T> {
         BufferedReader reader = new BufferedReader(
             new FileReader(fileName)
         );
-        Locale locale;
+
         String line;
+
+
         while ((line = reader.readLine()) != null) {
             try {
+                log.info("line : " + line);
                 result.add(parser.parse(line));
             }catch (Exception e){
                 log.error("Parser 에러 발생 : " + e);

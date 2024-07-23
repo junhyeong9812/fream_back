@@ -74,7 +74,9 @@ public class MyPageServiceImpl implements MyPageService{
         String uploadPath = "src/main/resources/static/upload/ProfileImg";
         String dbSaveImgName = null;
         try {
+
             if (img != null){
+                log.info("img : " + img);
                 dbSaveImgName = mi.SaveImg(userid, img, uploadPath);
             }
             else {

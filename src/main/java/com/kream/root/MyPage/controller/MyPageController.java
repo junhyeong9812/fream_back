@@ -5,6 +5,7 @@ import com.kream.root.Login.repository.UserListRepository;
 //import com.kream.root.MyPage.domain.AddressBook;
 import com.kream.root.MyPage.dto.addressDTO;
 //import com.kream.root.MyPage.repository.AddressBookRepository;
+import com.kream.root.MyPage.mapping.ImgMapper;
 import com.kream.root.MyPage.service.MyPageService;
 import com.kream.root.entity.AddressBook;
 import com.kream.root.order.repository.AddressBookRepository;
@@ -13,6 +14,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +28,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+@Setter
 @RestController
 @RequestMapping("/my")
 @Log4j2
 @Tag(name = "MyPage", description = "MyPage API")
+@NoArgsConstructor
+@AllArgsConstructor
 public class MyPageController {
 
     @Autowired
@@ -44,7 +52,7 @@ public class MyPageController {
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "MyPage Data", description = "마이페이지 데이터 전송")
     @ApiResponse(responseCode = "200")
-    @PostMapping("/profile-edit") //프로필 관리
+    @PutMapping("/profile-edit") //프로필 관리
     public ResponseEntity<Optional<UserListDTO>>  mainMyPage(
             @CookieValue(value = "loginCookie") Cookie cookie,
                                @RequestParam(required = false) MultipartFile img,
@@ -54,7 +62,7 @@ public class MyPageController {
 //                                         @RequestParam(required = false) List<String> BlockProfile
                                          ){
         String userid =  cookie.getValue();
-        log.info(userid);
+        log.info(img);
 
         Optional<UserListDTO> userData = null;
 
@@ -92,14 +100,29 @@ public class MyPageController {
         return userData;
     }
 
-//    @PostMapping("test")
-//    public Optional<UserListDTO> testMyPage(@CookieValue(value = "loginCookie") Cookie cookie,
-//                                    @RequestParam(required = false) MultipartFile img){
-//        String userid =  cookie.getValue();
-//        Optional<UserListDTO> userData = null;
-//        userData = ms.changeImg(userid, img);
-//        return userData;
-//    }
+    @PutMapping("/profile-edit/img")
+    public ResponseEntity<Optional<UserListDTO>>  profileImgChange(@CookieValue(value = "loginCookie") Cookie cookie,
+//                                                                 @RequestPart(required = false, value = "file") MultipartFile formData)
+                                                                   @RequestParam("file") MultipartFile file) {
+        String userid =  cookie.getValue();
+        Optional<UserListDTO> userData = null;
+
+        log.info("formData : " + file);
+//        log.info("img : " + img);
+//
+//        if (!formData.isEmpty()){
+//            userData = ms.changeImg(userid, formData.get("file"));
+//        }
+//        else {
+            userData = ms.changeImg(userid, file);
+//        }
+
+        if (userData == null){
+            return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.OK);
+    }
 
     @PostMapping("profile") //로그인정보
     public ResponseEntity<Optional<UserListDTO>> loginInfo(

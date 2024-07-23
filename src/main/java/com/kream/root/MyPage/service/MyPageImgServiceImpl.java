@@ -30,7 +30,7 @@ public class MyPageImgServiceImpl implements MyPageImgService{
                 String dbFilePath = "/upload/ProfileImg/" + fileName;
 
                 Path path = Paths.get(filePath); // Path 객체 생성
-                Files.createDirectories(path.getParent()); // 디렉토리 생성
+                log.info(path);
                 deleteUserImg(uploadDir, userid); //이미지가 기존에 있을 경우 삭제
                 Files.write(path, img.getBytes()); // 디렉토리에 파일 저장
                 return dbFilePath;
