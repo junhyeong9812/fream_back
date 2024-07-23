@@ -18,11 +18,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "STYLES")
+@SequenceGenerator(name = "style_seq_gen", sequenceName = "STYLE_SEQ", allocationSize = 1)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Style {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "style_seq_gen")
-    @SequenceGenerator(name = "style_seq_gen", sequenceName = "STYLE_SEQ", allocationSize = 1)
     private Long id;
 
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -34,11 +34,13 @@ public class Style {
     private Set<StyleReply> replies = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "USERID")
+    @JoinColumn(name = "user_id", referencedColumnName = "USERID",
+            foreignKey = @ForeignKey(name = "FK_STYLE_USER"))
     private UserListDTO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "PRID",
+            foreignKey = @ForeignKey(name = "FK_STYLE_PRODUCT"))
     private Product product;
 
     @Column(name = "content")
