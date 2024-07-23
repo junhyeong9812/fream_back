@@ -191,6 +191,10 @@ public class UserListDTO implements UserDetails {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
+    public @NotNull @Size(max = 100) String getUserName() {
+        return userName;
+    }
+
     @Override
     public String getPassword() {
         return userPw;

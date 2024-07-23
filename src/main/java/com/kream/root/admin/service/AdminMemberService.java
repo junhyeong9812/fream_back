@@ -80,6 +80,7 @@ public class AdminMemberService {
         }//동일한 이름을 가진 맴버가 존재할 경우 throw를 통해 익셉션을 생성하고
         //새로운 익셉션을 생성한다.
 
+
     }
 
 

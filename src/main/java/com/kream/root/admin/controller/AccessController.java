@@ -63,6 +63,7 @@ public class AccessController {
         String cookieName = "recentProducts";
         Cookie[] cookies = request.getCookies();
 
+
         if (cookies == null) {
 //            log.info("cookies : " + cookies);
             System.out.println("cookies = " + cookies);
