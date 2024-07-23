@@ -33,7 +33,7 @@ public class QReply extends EntityPathBase<Reply> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QReply(String variable) {
-        this(Reply.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(Reply.class, forVariable(variable), INITS);
     }
 
     public QReply(Path<? extends Reply> path) {

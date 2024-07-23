@@ -35,7 +35,7 @@ public class QRefundAccount extends EntityPathBase<RefundAccount> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QRefundAccount(String variable) {
-        this(RefundAccount.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(RefundAccount.class, forVariable(variable), INITS);
     }
 
     public QRefundAccount(Path<? extends RefundAccount> path) {

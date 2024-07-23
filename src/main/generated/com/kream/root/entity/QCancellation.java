@@ -30,7 +30,7 @@ public class QCancellation extends EntityPathBase<Cancellation> {
 
     public final StringPath impUid = createString("impUid");
 
-    public final NumberPath<Long> merchantUid = createNumber("merchantUid", Long.class);
+    public final StringPath merchantUid = createString("merchantUid");
 
     public final QOrders order;
 
@@ -47,7 +47,7 @@ public class QCancellation extends EntityPathBase<Cancellation> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QCancellation(String variable) {
-        this(Cancellation.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(Cancellation.class, forVariable(variable), INITS);
     }
 
     public QCancellation(Path<? extends Cancellation> path) {

@@ -13,6 +13,6 @@ import java.util.Optional;
 @Repository("orderAddressBookRepository")
 public interface AddressBookRepository extends JpaRepository<AddressBook, Long> {
     List<AddressBook> findByUserUlid(int ulid);
-    @Query("select a from AddressBook a where a.user.ulid = :ulid")
-    List<AddressBook> listAddressBook ( int ulid);
+//    @Query("select a from AddressBook a where a.user.ulid = :ulid")
+//    List<AddressBook> listAddressBook ( int ulid);
 }

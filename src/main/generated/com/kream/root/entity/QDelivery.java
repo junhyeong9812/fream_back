@@ -22,6 +22,8 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public static final QDelivery delivery = new QDelivery("delivery");
 
+    public final StringPath courierName = createString("courierName");
+
     public final StringPath deliveryAddress = createString("deliveryAddress");
 
     public final DateTimePath<java.time.LocalDateTime> deliveryDate = createDateTime("deliveryDate", java.time.LocalDateTime.class);
@@ -32,8 +34,10 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public final QOrders order;
 
+    public final StringPath trackingNumber = createString("trackingNumber");
+
     public QDelivery(String variable) {
-        this(Delivery.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(Delivery.class, forVariable(variable), INITS);
     }
 
     public QDelivery(Path<? extends Delivery> path) {
