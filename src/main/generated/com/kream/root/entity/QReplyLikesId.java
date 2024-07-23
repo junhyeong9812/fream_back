@@ -24,7 +24,7 @@ public class QReplyLikesId extends BeanPath<ReplyLikesId> {
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public QReplyLikesId(String variable) {
-        super(ReplyLikesId.class, PathMetadataFactory.forVariable(variable));
+        super(ReplyLikesId.class, forVariable(variable));
     }
 
     public QReplyLikesId(Path<? extends ReplyLikesId> path) {

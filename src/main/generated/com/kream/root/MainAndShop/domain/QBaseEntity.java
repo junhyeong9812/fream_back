@@ -22,7 +22,7 @@ public class QBaseEntity extends EntityPathBase<BaseEntity> {
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
     public QBaseEntity(String variable) {
-        super(BaseEntity.class, PathMetadataFactory.forVariable(variable));
+        super(BaseEntity.class, forVariable(variable));
     }
 
     public QBaseEntity(Path<? extends BaseEntity> path) {

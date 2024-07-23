@@ -57,7 +57,7 @@ public class QAdmin extends EntityPathBase<Admin> {
     public final StringPath username = createString("username");
 
     public QAdmin(String variable) {
-        this(Admin.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(Admin.class, forVariable(variable), INITS);
     }
 
     public QAdmin(Path<? extends Admin> path) {

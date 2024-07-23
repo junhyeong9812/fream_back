@@ -11,47 +11,46 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QBoard is a Querydsl query type for Board
+ * QStyleReply is a Querydsl query type for StyleReply
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QBoard extends EntityPathBase<Board> {
+public class QStyleReply extends EntityPathBase<StyleReply> {
 
-    private static final long serialVersionUID = -518570826L;
+    private static final long serialVersionUID = 1928708073L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBoard board = new QBoard("board");
-
-    public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
+    public static final QStyleReply styleReply = new QStyleReply("styleReply");
 
     public final StringPath content = createString("content");
 
     public final DateTimePath<java.time.LocalDateTime> createdDate = createDateTime("createdDate", java.time.LocalDateTime.class);
 
-    public final ListPath<Reply, QReply> replies = this.<Reply, QReply>createList("replies", Reply.class, QReply.class, PathInits.DIRECT2);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath title = createString("title");
+    public final QStyle style;
 
     public final com.kream.root.Login.model.QUserListDTO user;
 
-    public QBoard(String variable) {
-        this(Board.class, forVariable(variable), INITS);
+    public QStyleReply(String variable) {
+        this(StyleReply.class, forVariable(variable), INITS);
     }
 
-    public QBoard(Path<? extends Board> path) {
+    public QStyleReply(Path<? extends StyleReply> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QBoard(PathMetadata metadata) {
+    public QStyleReply(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QBoard(PathMetadata metadata, PathInits inits) {
-        this(Board.class, metadata, inits);
+    public QStyleReply(PathMetadata metadata, PathInits inits) {
+        this(StyleReply.class, metadata, inits);
     }
 
-    public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
+    public QStyleReply(Class<? extends StyleReply> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.style = inits.isInitialized("style") ? new QStyle(forProperty("style"), inits.get("style")) : null;
         this.user = inits.isInitialized("user") ? new com.kream.root.Login.model.QUserListDTO(forProperty("user"), inits.get("user")) : null;
     }
 

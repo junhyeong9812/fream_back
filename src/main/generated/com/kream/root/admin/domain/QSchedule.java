@@ -30,7 +30,7 @@ public class QSchedule extends EntityPathBase<Schedule> {
     public final StringPath userId = createString("userId");
 
     public QSchedule(String variable) {
-        super(Schedule.class, PathMetadataFactory.forVariable(variable));
+        super(Schedule.class, forVariable(variable));
     }
 
     public QSchedule(Path<? extends Schedule> path) {

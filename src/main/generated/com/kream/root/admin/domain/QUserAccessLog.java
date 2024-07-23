@@ -34,7 +34,7 @@ public class QUserAccessLog extends EntityPathBase<UserAccessLog> {
     public final StringPath userAgent = createString("userAgent");
 
     public QUserAccessLog(String variable) {
-        super(UserAccessLog.class, PathMetadataFactory.forVariable(variable));
+        super(UserAccessLog.class, forVariable(variable));
     }
 
     public QUserAccessLog(Path<? extends UserAccessLog> path) {

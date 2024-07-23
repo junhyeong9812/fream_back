@@ -50,7 +50,7 @@ public class QProductPreData extends EntityPathBase<ProductPreData> {
     public final NumberPath<Long> trading_volume = createNumber("trading_volume", Long.class);
 
     public QProductPreData(String variable) {
-        super(ProductPreData.class, PathMetadataFactory.forVariable(variable));
+        super(ProductPreData.class, forVariable(variable));
     }
 
     public QProductPreData(Path<? extends ProductPreData> path) {

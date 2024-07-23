@@ -44,8 +44,12 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
+    public final SetPath<com.kream.root.entity.Style, com.kream.root.entity.QStyle> styles = this.<com.kream.root.entity.Style, com.kream.root.entity.QStyle>createSet("styles", com.kream.root.entity.Style.class, com.kream.root.entity.QStyle.class, PathInits.DIRECT2);
+
+    public final ListPath<com.kream.root.entity.Wish, com.kream.root.entity.QWish> wishes = this.<com.kream.root.entity.Wish, com.kream.root.entity.QWish>createList("wishes", com.kream.root.entity.Wish.class, com.kream.root.entity.QWish.class, PathInits.DIRECT2);
+
     public QProduct(String variable) {
-        super(Product.class, PathMetadataFactory.forVariable(variable));
+        super(Product.class, forVariable(variable));
     }
 
     public QProduct(Path<? extends Product> path) {

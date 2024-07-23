@@ -35,7 +35,7 @@ public class QProductImg extends EntityPathBase<ProductImg> {
     public final DateTimePath<java.time.LocalDateTime> reg_date = createDateTime("reg_date", java.time.LocalDateTime.class);
 
     public QProductImg(String variable) {
-        this(ProductImg.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(ProductImg.class, forVariable(variable), INITS);
     }
 
     public QProductImg(Path<? extends ProductImg> path) {

@@ -226,7 +226,7 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public List<AddressBook> getAddressBookList(int ulid) {
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 
     @Override
@@ -251,7 +251,7 @@ public class MyPageServiceImpl implements MyPageService{
 
         addressBookRepository.save(addrBook);
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 
     @Override
@@ -286,6 +286,6 @@ public class MyPageServiceImpl implements MyPageService{
 
         addressBookRepository.save(addrBook);
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 }

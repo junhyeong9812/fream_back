@@ -172,7 +172,7 @@ public class MyPageController {
             throw new IllegalArgumentException("없는 정보 입니다.");
         }).getUlid();
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Address Get", description = "주소록")

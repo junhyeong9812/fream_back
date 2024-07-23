@@ -83,7 +83,7 @@ public class QOrders extends EntityPathBase<Orders> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QOrders(String variable) {
-        this(Orders.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(Orders.class, forVariable(variable), INITS);
     }
 
     public QOrders(Path<? extends Orders> path) {
