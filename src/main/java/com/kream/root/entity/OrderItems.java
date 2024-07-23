@@ -1,6 +1,8 @@
 package com.kream.root.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kream.root.MainAndShop.domain.Product;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,6 +20,7 @@ import lombok.*;
         sequenceName = "order_items_seq",
         allocationSize = 1
 )
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderItemId")
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_items_seq_generator")

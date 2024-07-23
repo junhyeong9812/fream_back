@@ -23,13 +23,13 @@ public class StyleReply {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "style_id",
             foreignKey = @ForeignKey(name = "FK_STYLE_REPLY_STYLE"))
-    @JsonBackReference
+    @JsonBackReference("style-styleReplies")
     private Style style;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "USERID",
             foreignKey = @ForeignKey(name = "FK_STYLE_REPLY_USER"))
-    @JsonBackReference
+    @JsonBackReference("user-styleReply")
     private UserListDTO user;
 
     @Column(nullable = false)

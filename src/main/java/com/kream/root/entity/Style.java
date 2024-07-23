@@ -1,6 +1,7 @@
 package com.kream.root.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -26,21 +27,23 @@ public class Style {
     private Long id;
 
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("style-styleLike")
     private Set<StyleLike> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("style-styleReplies")
     private Set<StyleReply> replies = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "USERID",
             foreignKey = @ForeignKey(name = "FK_STYLE_USER"))
+    @JsonBackReference("user-style")
     private UserListDTO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "PRID",
             foreignKey = @ForeignKey(name = "FK_STYLE_PRODUCT"))
+    @JsonBackReference("product-style")
     private Product product;
 
     @Column(name = "content")

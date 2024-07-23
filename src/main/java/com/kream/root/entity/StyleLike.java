@@ -22,13 +22,13 @@ public class StyleLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "style_id",
             foreignKey = @ForeignKey(name = "FK_STYLE_LIKE_STYLE"))
-    @JsonBackReference
+    @JsonBackReference("style-styleLike")
     private Style style;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "USERID",
             foreignKey = @ForeignKey(name = "FK_STYLE_LIKE_USER"))
-    @JsonBackReference
+    @JsonBackReference("user-styleLike")
     private UserListDTO user;
 }
 

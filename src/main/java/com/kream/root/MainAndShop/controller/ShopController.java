@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("shop")
+@RequestMapping("/shop")
 public class ShopController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ShopController {
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Shop Data", description = "상품 데이터 전송")
     @ApiResponse(responseCode = "200")
-    @GetMapping("/")
+    @GetMapping("")
     public List<OneProductDTO> totalList(){
 
         List<OneProductDTO> productList = ss.getList();
