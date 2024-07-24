@@ -2,21 +2,31 @@ package com.kream.root.MainAndShop.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kream.root.Detail.repository.UserBigDataRepository;
 import com.kream.root.MainAndShop.domain.ProductPreData;
 import com.kream.root.MainAndShop.dto.OneProductDTO;
+import com.kream.root.MainAndShop.dto.RecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.repository.ProductPredataRepository;
 import com.kream.root.MainAndShop.repository.ProductRepository;
+import com.kream.root.Wish.repository.WishRepository;
+import com.kream.root.entity.Orders;
+import com.kream.root.entity.Style;
+import com.kream.root.entity.UserBigData;
+import com.kream.root.order.repository.OrdersRepository;
+import com.kream.root.style.repository.StyleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -84,4 +94,33 @@ public class mainServiceImpl implements mainService {
         //Flask 서버로 데이터를 전송하고 받은 응답 값을 return
         return restTemplate.postForObject(url, entity, List.class);
     }
+
+    @Autowired
+    OrdersRepository ordersRepository;
+
+    @Autowired
+    UserBigDataRepository userBigDataRepository;
+
+    @Autowired
+    StyleRepository styleRepository;
+
+    @Autowired
+    WishRepository wishRepository;
+    // 데이터 넣기
+    // 데이터 합치기
+    public List<RecommendDTO> createRecommendData(LocalDateTime date){
+        List<Orders> orderList = ordersRepository.findByOrderDate(date);
+        List<UserBigData> clickList = userBigDataRepository.findByUbDate(date);
+        List<Style> styleList = styleRepository.findByStyleDate(date);
+
+
+
+
+
+
+
+        return null;
+    }
+
+
 }

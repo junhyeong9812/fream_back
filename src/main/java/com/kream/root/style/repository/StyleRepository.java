@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -46,4 +48,12 @@ public class StyleRepository {
         Style style = entityManager.find(Style.class, styleId);
         return Optional.ofNullable(style);
     }
+
+    public List<Style> findByStyleDate(LocalDateTime styleDate){ // date 기준 데이터 불러오기
+        String jpql = "SELECT s FROM Style s WHERE s.styleDate = :styleDate";
+        return entityManager.createQuery(jpql, Style.class)
+                .setParameter("styleDate", styleDate)
+                .getResultList();
+    }
+
 }

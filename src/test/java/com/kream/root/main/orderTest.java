@@ -1,16 +1,16 @@
 package com.kream.root.main;
 
+import com.kream.root.Detail.repository.UserBigDataRepository;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.admin.repository.SellerProductRepository;
-import com.kream.root.entity.OrderItems;
-import com.kream.root.entity.Orders;
-import com.kream.root.entity.SellerProduct;
+import com.kream.root.entity.*;
 import com.kream.root.main.CSVParser.OrderData;
 import com.kream.root.main.CSVParser.ReadLineContext;
 import com.kream.root.order.repository.OrdersRepository;
+import com.kream.root.style.repository.StyleRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +113,53 @@ public class orderTest {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    @Transactional
+    public void orderSelect (){
+        log.info("order info : {}", ordersRepository.findById(1L));
+    }
+    @Transactional
+    @Test
+    public void orderDateSelect (){
+        String date = "2024-07-01 00:00:00";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
+        List<Orders> orderDate= ordersRepository.findByOrderDate(dateTime);
+        orderDate.forEach(data -> {
+            log.info("order info : {}", data);
+        });
+    }
+
+    @Autowired
+    UserBigDataRepository userBigDataRepository;
+
+    @Transactional
+    @Test
+    public void clickDateSelect (){
+        String date = "2024-07-01 00:00:00";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
+        List<UserBigData> clickDate= userBigDataRepository.findByUbDate(dateTime);
+        clickDate.forEach(data -> {
+            log.info("click info : {}", data);
+        });
+    }
+
+    @Autowired
+    StyleRepository styleRepository;
+
+    @Transactional
+    @Test
+    public void styleDateSelect (){
+        String date = "2024-07-01 00:00:00";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
+        List<Style> styleDate= styleRepository.findByStyleDate(dateTime);
+        styleDate.forEach(data -> {
+            log.info("style info : {}", data);
+        });
     }
 
 
