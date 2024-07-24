@@ -36,7 +36,7 @@ public class QUserBigData extends EntityPathBase<UserBigData> {
     public final com.kream.root.Login.model.QUserListDTO userListDTO;
 
     public QUserBigData(String variable) {
-        this(UserBigData.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(UserBigData.class, forVariable(variable), INITS);
     }
 
     public QUserBigData(Path<? extends UserBigData> path) {

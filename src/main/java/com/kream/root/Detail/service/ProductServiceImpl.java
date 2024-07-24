@@ -3,16 +3,21 @@ package com.kream.root.Detail.service;
 import com.kream.root.Detail.dto.OneProductDTO;
 //import com.kream.root.pro_detail.repository.ProductImgRepository;
 //import com.kream.root.pro_detail.repository.ProductRepository;
+import com.kream.root.Detail.dto.PriceChartDTO;
+import com.kream.root.Detail.repository.PriceChartRepository;
 import com.kream.root.Detail.repository.ProductDetailRepository;
 import com.kream.root.Detail.repository.ProductImgDetailRepository;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.domain.ProductImg;
+import com.kream.root.entity.OrderItems;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,15 +28,11 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProductServiceImpl implements ProductService{
     private final ProductDetailRepository productDetailRepository;
-    //private final ProductImgDetailRepository productImgDetailRepository;
-    //private final ModelMapper modelMapper;
+    private final PriceChartRepository priceChartRepository;
 
     @Override
-    public List<OneProductDTO> getProductDetail(long prId) {
+    public List<OneProductDTO> getProductDetail(Long prId) {
         List<OneProductDTO> productDetail = productDetailRepository.getProductDetail(prId);
-        //Product product = result.orElseThrow();
-        //Entity -> DTO
-        //OneProductDTO productDTO = modelMapper.map(product, OneProductDTO.class);
 
         return productDetail;
     }
@@ -53,7 +54,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<OneProductDTO> getProductsByPrId(List<Long> recentProductsIds) {
         List<OneProductDTO> result = productDetailRepository.productsRecentView(recentProductsIds);
-        System.out.println("result:" + result);
+
         return result;
     }
 }

@@ -41,7 +41,7 @@ public class QAddressBook extends EntityPathBase<AddressBook> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QAddressBook(String variable) {
-        this(AddressBook.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(AddressBook.class, forVariable(variable), INITS);
     }
 
     public QAddressBook(Path<? extends AddressBook> path) {

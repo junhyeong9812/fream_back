@@ -31,7 +31,7 @@ public class QBoardLikes extends EntityPathBase<BoardLikes> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QBoardLikes(String variable) {
-        this(BoardLikes.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(BoardLikes.class, forVariable(variable), INITS);
     }
 
     public QBoardLikes(Path<? extends BoardLikes> path) {

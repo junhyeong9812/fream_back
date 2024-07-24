@@ -26,7 +26,7 @@ public class QAddress extends BeanPath<Address> {
     public final StringPath zipcode = createString("zipcode");
 
     public QAddress(String variable) {
-        super(Address.class, PathMetadataFactory.forVariable(variable));
+        super(Address.class, forVariable(variable));
     }
 
     public QAddress(Path<? extends Address> path) {

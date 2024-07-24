@@ -1,8 +1,10 @@
 package com.kream.root.Detail.repository.productDetail;
 
 import com.kream.root.Detail.dto.OneProductDTO;
+import com.kream.root.Detail.dto.PriceChartDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface Detail {
@@ -16,6 +18,5 @@ public interface Detail {
     List<OneProductDTO> getProductsByGender(Long prId);
 
     //최근 본 상품 리스트
-    //List<OneProductDTO> getProductsByIds(List<Long> prId);
     List<OneProductDTO> productsRecentView(List<Long> prId);
 }

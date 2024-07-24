@@ -24,7 +24,7 @@ public class QBoardLikesId extends BeanPath<BoardLikesId> {
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public QBoardLikesId(String variable) {
-        super(BoardLikesId.class, PathMetadataFactory.forVariable(variable));
+        super(BoardLikesId.class, forVariable(variable));
     }
 
     public QBoardLikesId(Path<? extends BoardLikesId> path) {

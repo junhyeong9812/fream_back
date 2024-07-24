@@ -33,7 +33,7 @@ public class QSellerProduct extends EntityPathBase<SellerProduct> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QSellerProduct(String variable) {
-        this(SellerProduct.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(SellerProduct.class, forVariable(variable), INITS);
     }
 
     public QSellerProduct(Path<? extends SellerProduct> path) {

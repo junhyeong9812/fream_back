@@ -1,16 +1,20 @@
 package com.kream.root.Detail.repository.productDetail;
 
+import com.kream.root.Detail.dto.PriceChartDTO;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.domain.QProduct;
 import com.kream.root.MainAndShop.domain.QProductImg;
 
 import com.kream.root.Detail.dto.OneProductDTO;
+import com.kream.root.entity.QOrderItems;
+import com.kream.root.entity.QOrders;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,26 +115,6 @@ public class DetailImpl extends QuerydslRepositorySupport implements Detail {
 
             return dtoList;
         }
-
-//    @Override
-//    public List<OneProductDTO> getProductsByIds(List<Long> prId) {
-//        QProduct product = QProduct.product;
-//        QProductImg productImg = QProductImg.productImg;
-//
-//        JPQLQuery<OneProductDTO> query = from(product)
-//                .innerJoin(productImg).on(product.prid.eq(productImg.product.prid))
-//                .select(Projections.bean(OneProductDTO.class,
-//                        product.prid, product.nameKor, product.nameEng,
-//                        product.category, product.brand, product.color, product.price,
-//                        product.info, product.gender, productImg.imgName
-//                ))
-//                .where(product.prid.in(prId));
-//
-//        List<OneProductDTO> dtoList = query.fetch();
-//        dtoList.forEach(dto -> log.info(dto));
-//
-//        return dtoList;
-//    }
 
     @Override
     public List<OneProductDTO> productsRecentView(List<Long> prId) {

@@ -39,7 +39,7 @@ public class QProductQna extends EntityPathBase<ProductQna> {
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QProductQna(String variable) {
-        this(ProductQna.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(ProductQna.class, forVariable(variable), INITS);
     }
 
     public QProductQna(Path<? extends ProductQna> path) {

@@ -11,44 +11,42 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QReplyLikes is a Querydsl query type for ReplyLikes
+ * QStyleLike is a Querydsl query type for StyleLike
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QReplyLikes extends EntityPathBase<ReplyLikes> {
+public class QStyleLike extends EntityPathBase<StyleLike> {
 
-    private static final long serialVersionUID = 1233999650L;
+    private static final long serialVersionUID = -1600526664L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QReplyLikes replyLikes = new QReplyLikes("replyLikes");
+    public static final QStyleLike styleLike = new QStyleLike("styleLike");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ComparablePath<Character> likeDislike = createComparable("likeDislike", Character.class);
-
-    public final QReply reply;
+    public final QStyle style;
 
     public final com.kream.root.Login.model.QUserListDTO user;
 
-    public QReplyLikes(String variable) {
-        this(ReplyLikes.class, forVariable(variable), INITS);
+    public QStyleLike(String variable) {
+        this(StyleLike.class, forVariable(variable), INITS);
     }
 
-    public QReplyLikes(Path<? extends ReplyLikes> path) {
+    public QStyleLike(Path<? extends StyleLike> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QReplyLikes(PathMetadata metadata) {
+    public QStyleLike(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QReplyLikes(PathMetadata metadata, PathInits inits) {
-        this(ReplyLikes.class, metadata, inits);
+    public QStyleLike(PathMetadata metadata, PathInits inits) {
+        this(StyleLike.class, metadata, inits);
     }
 
-    public QReplyLikes(Class<? extends ReplyLikes> type, PathMetadata metadata, PathInits inits) {
+    public QStyleLike(Class<? extends StyleLike> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.reply = inits.isInitialized("reply") ? new QReply(forProperty("reply"), inits.get("reply")) : null;
+        this.style = inits.isInitialized("style") ? new QStyle(forProperty("style"), inits.get("style")) : null;
         this.user = inits.isInitialized("user") ? new com.kream.root.Login.model.QUserListDTO(forProperty("user"), inits.get("user")) : null;
     }
 

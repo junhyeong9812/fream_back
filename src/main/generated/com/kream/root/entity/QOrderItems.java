@@ -33,7 +33,7 @@ public class QOrderItems extends EntityPathBase<OrderItems> {
     public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
 
     public QOrderItems(String variable) {
-        this(OrderItems.class, PathMetadataFactory.forVariable(variable), INITS);
+        this(OrderItems.class, forVariable(variable), INITS);
     }
 
     public QOrderItems(Path<? extends OrderItems> path) {
