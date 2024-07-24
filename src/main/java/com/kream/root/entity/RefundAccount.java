@@ -4,6 +4,9 @@ package com.kream.root.entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import com.kream.root.Login.model.UserListDTO;
@@ -14,6 +17,7 @@ import com.kream.root.Login.model.UserListDTO;
 @Setter
 @Entity
 @Table(name = "REFUND_ACCOUNT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "raid")
 public class RefundAccount {
 
     @Id
@@ -24,6 +28,7 @@ public class RefundAccount {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ULID", unique = true)
+    @JsonBackReference("user-refundAccount")
     private UserListDTO user;
 
     @Column(name = "ACCOUNT_NUMBER")

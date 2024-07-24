@@ -1,10 +1,13 @@
 package com.kream.root.MainAndShop.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfo;
 import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfoConverter;
+//import com.kream.root.entity.Style;
+//import com.kream.root.entity.Wish;
 import com.kream.root.entity.Style;
 import com.kream.root.entity.Wish;
 import jakarta.persistence.*;
@@ -32,7 +35,6 @@ import java.util.Set;
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq_generator")
-    @Column(name="PRID")
     private Long prid;
 
     @Column(name= "product_name_kor", nullable = false)
@@ -62,9 +64,13 @@ public class Product extends BaseEntity {
     private List<ProductImg> productImgs  = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference // 위시 목록을 JSON에 포함
+//    @JsonManagedReference // 위시 목록을 JSON에 포함
+    @Builder.Default
+    @JsonManagedReference("product-wish")
     private List<Wish> wishes = new ArrayList<>();
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("product-style")
     private Set<Style> styles;
 
 //    @JoinColumn(name = "prid")

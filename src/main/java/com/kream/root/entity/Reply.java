@@ -29,8 +29,8 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-//    @JsonManagedReference("user-reply")
-//    @JsonBackReference("user-reply")
+    @JsonManagedReference("user-reply")
+    @JsonBackReference("user-reply")
     @JsonIgnore  // 이 부분에서 UserListDTO에 대한 직렬화를 무시
     private UserListDTO user;
 

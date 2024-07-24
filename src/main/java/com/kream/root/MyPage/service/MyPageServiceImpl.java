@@ -62,6 +62,7 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public Optional<UserListDTO> changeUserName(String userid, String userName) {
         Optional<UserListDTO> userList = userListRepository.findByUserId(userid);
+//        userList.get().getUser
         userList.get().setUserName(userName);
         userListRepository.save(userList.get());
         log.info(userList.get());
@@ -73,7 +74,9 @@ public class MyPageServiceImpl implements MyPageService{
         String uploadPath = "src/main/resources/static/upload/ProfileImg";
         String dbSaveImgName = null;
         try {
+
             if (img != null){
+                log.info("img : " + img);
                 dbSaveImgName = mi.SaveImg(userid, img, uploadPath);
             }
             else {
@@ -226,7 +229,7 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public List<AddressBook> getAddressBookList(int ulid) {
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 
     @Override
@@ -251,7 +254,7 @@ public class MyPageServiceImpl implements MyPageService{
 
         addressBookRepository.save(addrBook);
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 
     @Override
@@ -286,6 +289,6 @@ public class MyPageServiceImpl implements MyPageService{
 
         addressBookRepository.save(addrBook);
 
-        return addressBookRepository.listAddressBook(ulid);
+        return addressBookRepository.findByUserUlid(ulid);
     }
 }

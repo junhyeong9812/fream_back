@@ -31,6 +31,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "USERLIST")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserListDTO implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -114,6 +115,7 @@ public class UserListDTO implements UserDetails {
     private List<String> roles = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JsonManagedReference("user-refundAccount")
     private RefundAccount refundAccount;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference("board-user")
@@ -122,20 +124,23 @@ public class UserListDTO implements UserDetails {
     private List<Board> boards;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("user-reply")
+//    @JsonManagedReference("user-reply")
     private List<Reply> replies;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("user-wish")
     private List<Wish> wishes;
-
+//
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-style")
     private Set<Style> styles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-styleReply")
     private Set<StyleReply> styleReplies;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-styleLike")
     private Set<StyleLike> styleLikes;
 
 
@@ -151,6 +156,10 @@ public class UserListDTO implements UserDetails {
         this.refundAccount = refundAccount;
     }
 
+
+    public @NotNull @Size(max = 100) String getUserName() {
+        return userName;
+    }
 
     public UserListDTO(int ulid, @NotNull @Size(max = 50) String userId, @NotNull @Size(max = 100) String userPw,
                        @NotNull @Size(max = 100) String userName, LocalDate joinDate, LocalDateTime lastLoginTime,
