@@ -1,6 +1,7 @@
 package com.kream.root.Detail.controller;
 
 import com.kream.root.Detail.dto.OneProductDTO;
+import com.kream.root.Detail.dto.PriceChartDTO;
 import com.kream.root.Detail.service.ProductBigDataService;
 import com.kream.root.Detail.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @Tag(name = "Datail", description = "Detail Page API")
 @RestController
 @RequestMapping("/products")
@@ -34,7 +37,6 @@ public class DetailController {
     private final ProductService ps;
     private final ProductBigDataService bds;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @Operation(
             summary = "Detail Data", description = "상품 상세 데이터 전송"
     )
@@ -70,7 +72,7 @@ public class DetailController {
     )
     @ApiResponse(responseCode = "200", description = "products by Brand 정보 가져오기 성공")
     @GetMapping(value = "/{prId}/brand")
-    public ResponseEntity<List<OneProductDTO>> getProductsByBrand(@RequestParam("prId") Long prId) {
+    public ResponseEntity<List<OneProductDTO>> getProductsByBrand(@PathVariable("prId") long prId) {
         //log.info("Fetching products with brand: {} excluding prId: {}", brand, prId);
         try {
             //들어온 prId를 통해 해당 제품의 브랜드를 추출하여 동일한 브랜드의 다른 제품들을 반환
@@ -88,7 +90,7 @@ public class DetailController {
     )
     @ApiResponse(responseCode = "200", description = "products by gender 정보 가져오기 성공")
     @GetMapping(value = "/{prId}/gender")
-    public ResponseEntity<List<OneProductDTO>> getProductsByGender(@RequestParam("prId") Long prId) {
+    public ResponseEntity<List<OneProductDTO>> getProductsByGender(@PathVariable("prId") long prId) {
         //log.info("Fetching products with gender: {} excluding prId: {}", gender, prId);
         try {
             //들어온 prId를 통해 해당 제품의 성별을 추출하여 동일한 성별의 다른 제품들을 반환
@@ -101,7 +103,6 @@ public class DetailController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @Operation(
             summary = "Recent Views", description = "최근 본 상품 목록 전송"
     )
@@ -121,9 +122,9 @@ public class DetailController {
         }
     }
 
-    public void updateRecentProductsCookie(Long prId, HttpServletRequest request, HttpServletResponse response) {
+    public void updateRecentProductsCookie(long prId, HttpServletRequest request, HttpServletResponse response) {
         String cookieName = "recentProducts";
-        int maxProducts = 5;
+        int maxProducts = 10;
 
         //현재 쿠키에서 최근 본 상품 ID 리스트 가져오기
         List<Long> recentProducts = getRecentProductsFromCookies(request);
@@ -148,10 +149,10 @@ public class DetailController {
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24 * 7); //쿠키 유효기간 7일
             cookie.setSecure(true); //이 속성과
-            cookie.setAttribute("SameSite", "None"); //이 속성 추가
+            //cookie.setAttribute("SameSite", "None"); //이 속성 추가
             response.addCookie(cookie);
             //log.info("Updated recent products cookie: {}", cookie.getValue());
-            log.info("Recent products list: {}", recentProducts); //로그로 최근 본 상품 데이터 리스트 출력
+            log.info("Recent products list: {}", recentProducts); //최근 본 상품 데이터 리스트
         } catch (Exception e) {
             log.error("Error encoding cookie value", e);
         }

@@ -24,7 +24,6 @@ public class RootApplication {
 		return new RestTemplate();
 	}
 
-
 //	RESTful API란 무엇인가요?
 //	RESTful API는 두 컴퓨터 시스템이 인터넷을 통해 정보를 안전하게 교환하기 위해 사용하는 인터페이스입니다.
 //	대부분의 비즈니스 애플리케이션은 다양한 태스크를 수행하기 위해 다른 내부 애플리케이션 및 서드 파티 애플리케이션과 통신해야 합니다.
