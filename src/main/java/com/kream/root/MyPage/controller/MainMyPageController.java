@@ -22,7 +22,7 @@ public class MainMyPageController {
 //        return "index";
 //    }
 
-    @GetMapping("MyPage")
+    @GetMapping("myPage")
     public Optional<UserListDTO> mainMyPage(@CookieValue(value = "loginCookie") Cookie cookie){
         String userid = cookie.getValue();
 

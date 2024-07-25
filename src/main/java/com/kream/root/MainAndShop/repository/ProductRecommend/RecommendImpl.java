@@ -3,16 +3,22 @@ package com.kream.root.MainAndShop.repository.ProductRecommend;
 
 import com.kream.root.MainAndShop.domain.QProduct;
 import com.kream.root.MainAndShop.domain.QProductImg;
+import com.kream.root.MainAndShop.dto.RecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.domain.Product;
 
 import com.kream.root.MainAndShop.dto.OneProductDTO;
+import com.kream.root.entity.QOrders;
+import com.kream.root.entity.QStyle;
+import com.kream.root.entity.QUserBigData;
+import com.kream.root.entity.QWish;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -58,4 +64,19 @@ public class RecommendImpl extends QuerydslRepositorySupport implements Recommen
 
         return dtoList;
     }
+
+//    @Override
+//    public List<RecommendDTO> createRecommendTable(LocalDateTime date) {
+//
+//        QOrders orders = QOrders.orders;
+//        QUserBigData userBigData = QUserBigData.userBigData;
+//        QWish wish = QWish.wish;
+//        QStyle style = QStyle.style;
+//
+//
+//
+//
+//
+//        return List.of();
+//    }
 }

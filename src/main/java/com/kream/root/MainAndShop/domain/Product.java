@@ -1,6 +1,6 @@
 package com.kream.root.MainAndShop.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -24,7 +24,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+//@ToString
 @Table(name = "product")
 @SequenceGenerator(
     name = "product_seq_generator",
@@ -35,7 +35,6 @@ import java.util.Set;
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq_generator")
-    @Column(name = "PRID")
     private Long prid;
 
     @Column(name= "product_name_kor", nullable = false)
@@ -74,11 +73,9 @@ public class Product extends BaseEntity {
     @JsonManagedReference("product-style")
     private Set<Style> styles;
 
-
 //    @JoinColumn(name = "prid")
 //    @OneToOne(fetch = FetchType.LAZY)
 //    private ProductImg productImg;
-
 
 //    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
 //    private  dealExtra;

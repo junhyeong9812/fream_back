@@ -1,8 +1,10 @@
 package com.kream.root.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import com.kream.root.MainAndShop.domain.Product;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +35,7 @@ public class OrderItems {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonBackReference
     private Product product;
 
     @Column(nullable = false)

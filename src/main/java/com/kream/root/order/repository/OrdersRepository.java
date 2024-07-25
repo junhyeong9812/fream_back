@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,4 +17,5 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     long countByOrderDateBetween(LocalDateTime start, LocalDateTime end);
     List<Orders> findByUser_UserId(String userId);
 
+    List<Orders> findByOrderDate(LocalDateTime dateTime);
 }
