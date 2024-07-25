@@ -2,17 +2,28 @@ package com.kream.root.style.controller;
 
 import com.kream.root.entity.Style;
 import com.kream.root.entity.StyleReply;
+import com.kream.root.style.DTO.StyleDTO;
 import com.kream.root.style.service.StyleService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/styles")
 public class StyleController {
+    private final String uploadDir = "C:/jsp_file/style/";
 
     private final StyleService styleService;
 
@@ -20,11 +31,19 @@ public class StyleController {
     public StyleController(StyleService styleService) {
         this.styleService = styleService;
     }
+    @GetMapping
+    public ResponseEntity<List<StyleDTO>> getAllStyles() {
+        List<StyleDTO> styles = styleService.getAllStyles();
+        return ResponseEntity.ok(styles);
+    }
 
     @PostMapping
-    public ResponseEntity<Style> createStyle(@RequestParam Long productId, @RequestParam String content, Authentication authentication) {
+    public ResponseEntity<Style> createStyle(@RequestParam Long productId,
+                                             @RequestParam String content,
+                                             @RequestPart(required = false) MultipartFile image,
+                                             Authentication authentication) {
         String userId = authentication.getName();
-        Style style = styleService.createStyle(userId, productId, content);
+        Style style = styleService.createStyle(userId, productId, content, image);
         return ResponseEntity.ok(style);
     }
 
@@ -68,5 +87,22 @@ public class StyleController {
     public ResponseEntity<Void> deleteReply(@PathVariable Long replyId) {
         styleService.deleteReply(replyId);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/image/{filename:.+}")
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        try {
+            Path file = Paths.get(uploadDir).resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        .body(resource);
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
 }

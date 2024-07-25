@@ -7,6 +7,7 @@ import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.Wish.repository.WishRepository;
 import com.kream.root.entity.Wish;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,8 @@ public class WishService {
         }
         if (!user.isPresent()) {
             throw new IllegalArgumentException("User not found with ID: " + userId);
-        }
+        } // 지연 로딩된 엔티티 초기화
+        Hibernate.initialize(user.get().getBoards());
 
         Optional<Wish> existingWish = wishRepository.findByUserIdAndProductId(userId, productId);
         if (existingWish.isPresent()) {

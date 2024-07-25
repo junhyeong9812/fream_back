@@ -6,6 +6,7 @@ import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.entity.*;
+import com.kream.root.order.DTO.OrderDTO;
 import com.kream.root.order.PaymentInfo;
 import com.kream.root.order.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -371,5 +373,49 @@ public Orders createOrder(PaymentInfo paymentInfo, UserListDTO user) {
 //    public List<Orders> getAllOrders() {
 //        return ordersRepository.findAllWithItemsAndProducts();
 //    }
+//public List<Orders> getOrdersByUserId(String userId) {
+//    return ordersRepository.findByUser_UserId(userId);
+//}
+public List<OrderDTO> getOrdersByUserId(String userId) {
+    List<Orders> ordersList = ordersRepository.findByUser_UserId(userId);
+
+    return ordersList.stream().filter(order -> deliveryRepository.findByOrder_OrderId(order.getOrderId()) != null)
+            .map(order -> {
+        System.out.println("order.getOrderId() = " + order.getOrderId());
+        Delivery delivery = deliveryRepository.findByOrder_OrderId(order.getOrderId());
+        OrderItems orderItem = order.getOrderItems().get(0); // Assuming there's at least one order item per order
+        Product product = orderItem.getProduct();
+
+
+        // Process image URL
+        String rawImgName = product.getProductImgs().get(0).getImgName(); // Assuming there's at least one image
+        String cleanedImgName = rawImgName;
+        if (rawImgName.startsWith("['") && rawImgName.endsWith("']")) {
+            cleanedImgName = rawImgName.substring(2, rawImgName.length() - 2);
+        }
+        String[] imgNameArray = cleanedImgName.split("', '");
+        String mainImageUrl = "http://192.168.42.142:3001/admin/products/files/" + imgNameArray[0];
+
+        return OrderDTO.builder()
+                .orderId(order.getOrderId())
+                .orderCode(order.getOrderCode())
+                .user(order.getUser().getUserId())
+                .orderDate(order.getOrderDate())
+                .price(orderItem.getPrice())
+                .deliveryStatus(delivery.getDeliveryStatus())
+                .deliveryDate(delivery.getDeliveryDate())
+                // Product-related fields
+                .productId(product.getPrid())
+                .productNameKor(product.getNameKor())
+                .productNameEng(product.getNameEng())
+                .productCategory(product.getCategory())
+                .productBrand(product.getBrand())
+                .productColor(product.getColor())
+                .productGender(product.getGender())
+                .productPrice(product.getPrice())
+                .productMainImageUrl(mainImageUrl)
+                .build();
+    }).collect(Collectors.toList());
+}
 
 }

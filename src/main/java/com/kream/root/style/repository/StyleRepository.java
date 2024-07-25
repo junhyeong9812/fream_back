@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,5 +48,25 @@ public class StyleRepository {
     public Optional<Style> findById(Long styleId) {
         Style style = entityManager.find(Style.class, styleId);
         return Optional.ofNullable(style);
+    }
+
+    public List<Style> findByStyleDateBetween(LocalDateTime start, LocalDateTime end) {
+        TypedQuery<Style> query = entityManager.createQuery(
+                "SELECT s FROM Style s WHERE s.styleDate BETWEEN :start AND :end", Style.class);
+        query.setParameter("start", start);
+        query.setParameter("end", end);
+        return query.getResultList();
+    }
+    public long countByStyleDateBetween(LocalDateTime start, LocalDateTime end) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(s) FROM Style s WHERE s.styleDate BETWEEN :start AND :end", Long.class);
+        query.setParameter("start", start);
+        query.setParameter("end", end);
+        return query.getSingleResult();
+    }
+    public List<Style> findAll() {
+        TypedQuery<Style> query = entityManager.createQuery(
+                "SELECT s FROM Style s", Style.class);
+        return query.getResultList();
     }
 }
