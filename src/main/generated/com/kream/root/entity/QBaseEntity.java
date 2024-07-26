@@ -19,7 +19,7 @@ public class QBaseEntity extends EntityPathBase<BaseEntity> {
 
     public static final QBaseEntity baseEntity = new QBaseEntity("baseEntity");
 
-    public final DateTimePath<java.time.LocalDateTime> ubDate = createDateTime("ubDate", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> ubDate = createDate("ubDate", java.time.LocalDate.class);
 
     public QBaseEntity(String variable) {
         super(BaseEntity.class, forVariable(variable));

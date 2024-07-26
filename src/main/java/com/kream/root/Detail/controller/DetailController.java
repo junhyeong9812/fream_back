@@ -93,6 +93,7 @@ public class DetailController {
     @GetMapping(value = "/{prId}/gender")
 
     public ResponseEntity<List<OneProductDTO>> getProductsByGender(@PathVariable("prId") Long prId) {
+
         //log.info("Fetching products with gender: {} excluding prId: {}", gender, prId);
         try {
             //들어온 prId를 통해 해당 제품의 성별을 추출하여 동일한 성별의 다른 제품들을 반환

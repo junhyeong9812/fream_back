@@ -6,6 +6,7 @@ import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MyPage.dto.addressDTO;
 //import com.kream.root.MyPage.repository.AddressBookRepository;
 import com.kream.root.MyPage.mapping.ImgMapper;
+import com.kream.root.MyPage.mapping.loginInfoMapping;
 import com.kream.root.MyPage.service.MyPageService;
 import com.kream.root.entity.AddressBook;
 import com.kream.root.order.repository.AddressBookRepository;
@@ -55,14 +56,14 @@ public class MyPageController {
     @PutMapping("/profile-edit") //프로필 관리
     public ResponseEntity<Optional<UserListDTO>>  mainMyPage(
             @CookieValue(value = "loginCookie") Cookie cookie,
-                               @RequestParam(required = false) MultipartFile img,
-                               @RequestParam(required = false) String ProfileName,
-                               @RequestParam(required = false) String userName,
-                               @RequestParam(required = false) String introduce
+                               @RequestParam(required = false, value = "img") MultipartFile img,
+                               @RequestParam(required = false, value = "ProfileName") String ProfileName,
+                               @RequestParam(required = false, value = "userName") String userName,
+                               @RequestParam(required = false, value = "introduce") String introduce
 //                                         @RequestParam(required = false) List<String> BlockProfile
                                          ){
         String userid =  cookie.getValue();
-        log.info(img);
+        log.info(introduce);
 
         Optional<UserListDTO> userData = null;
 
@@ -127,14 +128,8 @@ public class MyPageController {
     @PostMapping("profile") //로그인정보
     public ResponseEntity<Optional<UserListDTO>> loginInfo(
             @CookieValue(value = "loginCookie") Cookie cookie,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String oldPassword,
-            @RequestParam(required = false) String newPassword,
-            @RequestParam(required = false) String phone,
-            @RequestParam(required = false) String user_size,
-            @RequestParam(required = false) String receive_email,
-            @RequestParam(required = false) String receive_message
-    ){
+            @RequestBody(required = false) loginInfoMapping mapping
+            ){
         //이메일주소
         //비밀번호
         //휴대폰번호
@@ -147,25 +142,25 @@ public class MyPageController {
 
         Optional<UserListDTO> userData = null;
 
-        if (email != null ) {
-            userData = ms.changeEmail(userid, email);
+        if (mapping.getEmail() != null ) {
+            userData = ms.changeEmail(userid, mapping.getEmail());
         }
-        if (oldPassword != null && newPassword != null ) {
-            userData = ms.changePassword(userid, oldPassword, newPassword);
+        if (mapping.getOldPassword() != null && mapping.getNewPassword() != null ) {
+            userData = ms.changePassword(userid, mapping.getOldPassword(), mapping.getNewPassword());
             // null : 현재 비밀번호가 틀림
         }
-        if (phone != null ) {
-            userData = ms.changePhone(userid, phone);
+        if (mapping.getPhone() != null ) {
+            userData = ms.changePhone(userid, mapping.getPhone());
             log.info(userData.get());
         }
-        if (user_size != null ) {
-            userData = ms.changeUser_size(userid, user_size);
+        if (mapping.getUser_size() != null ) {
+            userData = ms.changeUser_size(userid, mapping.getUser_size());
         }
-        if (receive_email != null ) {
-            userData = ms.receiveEmail(userid, receive_email);
+        if (mapping.getReceive_email() != null ) {
+            userData = ms.receiveEmail(userid, mapping.getReceive_email());
         }
-        if (receive_message != null ) {
-            userData = ms.receiveMessage(userid, receive_message);
+        if (mapping.getReceive_message() != null ) {
+            userData = ms.receiveMessage(userid, mapping.getReceive_message());
         }
 
         if (userData == null){

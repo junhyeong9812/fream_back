@@ -19,10 +19,13 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.annotation.Rollback;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -143,11 +146,14 @@ public void dataAdd() throws IOException {
     @Transactional
     @Test
     public void orderDateSelect (){
-        String date = "2024-07-01 00:00:00";
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
-        List<Orders> orderDate= ordersRepository.findByOrderDate(dateTime);
-        orderDate.forEach(data -> {
+        String date = "2024-07-01";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
+        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
+
+        List<Orders> orderList = ordersRepository.findByOrderDateBetween(startDate, endDate);
+        orderList.forEach(data -> {
             log.info("order info : {}", data);
         });
     }
@@ -161,10 +167,10 @@ public void dataAdd() throws IOException {
         String date = "2024-07-01 00:00:00";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
-        List<UserBigData> clickDate= userBigDataRepository.findByUbDate(dateTime);
-        clickDate.forEach(data -> {
-            log.info("click info : {}", data);
-        });
+//        List<UserBigData> clickDate= userBigDataRepository.findByUbDate(dateTime);
+//        clickDate.forEach(data -> {
+//            log.info("click info : {}", data);
+//        });
     }
 
     @Autowired
@@ -173,15 +179,18 @@ public void dataAdd() throws IOException {
     @Transactional
     @Test
     public void styleDateSelect (){
-        String date = "2024-07-01 00:00:00";
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
-        List<Style> styleDate= styleRepository.findByStyleDate(dateTime);
+        String date = "2024-07-01";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
+        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
+        List<Style> styleDate= styleRepository.findByStyleDateBetween(startDate, endDate);
         styleDate.forEach(data -> {
             log.info("style info : {}", data);
         });
     }
 
+<<<<<<< HEAD
 //    @Test
 //    @Transactional
 //    public void testCreateDummyOrders() {
@@ -243,4 +252,6 @@ public void dataAdd() throws IOException {
 
 
 
+=======
+>>>>>>> 742c961135f8a214312833f60e330e5bf8417fe8
 }
