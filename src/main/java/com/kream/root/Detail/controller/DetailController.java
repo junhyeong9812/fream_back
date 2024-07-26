@@ -1,7 +1,6 @@
 package com.kream.root.Detail.controller;
 
 import com.kream.root.Detail.dto.OneProductDTO;
-import com.kream.root.Detail.dto.PriceChartDTO;
 import com.kream.root.Detail.service.ProductBigDataService;
 import com.kream.root.Detail.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

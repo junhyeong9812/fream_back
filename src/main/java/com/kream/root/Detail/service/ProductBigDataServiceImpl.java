@@ -6,16 +6,13 @@ import com.kream.root.Detail.repository.UserBigDataRepository;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MainAndShop.domain.Product;
-import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.entity.UserBigData;
-import com.kream.root.entity.UserList;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
