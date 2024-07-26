@@ -31,7 +31,7 @@ public class QUserBigData extends EntityPathBase<UserBigData> {
     public final NumberPath<Long> ub_id = createNumber("ub_id", Long.class);
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> ubDate = _super.ubDate;
+    public final DatePath<java.time.LocalDate> ubDate = _super.ubDate;
 
     public final com.kream.root.Login.model.QUserListDTO userListDTO;
 

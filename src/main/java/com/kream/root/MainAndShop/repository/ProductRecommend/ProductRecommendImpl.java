@@ -3,28 +3,25 @@ package com.kream.root.MainAndShop.repository.ProductRecommend;
 
 import com.kream.root.MainAndShop.domain.QProduct;
 import com.kream.root.MainAndShop.domain.QProductImg;
-import com.kream.root.MainAndShop.dto.RecommendDTO;
+import com.kream.root.MainAndShop.dto.Recommend.RecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.domain.Product;
 
 import com.kream.root.MainAndShop.dto.OneProductDTO;
-import com.kream.root.entity.QOrders;
-import com.kream.root.entity.QStyle;
-import com.kream.root.entity.QUserBigData;
-import com.kream.root.entity.QWish;
+import com.kream.root.entity.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
-public class RecommendImpl extends QuerydslRepositorySupport implements Recommend{
+public class ProductRecommendImpl extends QuerydslRepositorySupport implements ProductRecommend {
 
-    public RecommendImpl(){super(Product.class);}
+    public ProductRecommendImpl(){super(Product.class);}
 
     @Override
     public List<brandDTO> getBrandCnt() {
@@ -65,18 +62,32 @@ public class RecommendImpl extends QuerydslRepositorySupport implements Recommen
         return dtoList;
     }
 
-//    @Override
-//    public List<RecommendDTO> createRecommendTable(LocalDateTime date) {
-//
-//        QOrders orders = QOrders.orders;
-//        QUserBigData userBigData = QUserBigData.userBigData;
-//        QWish wish = QWish.wish;
-//        QStyle style = QStyle.style;
-//
-//
-//
-//
-//
-//        return List.of();
-//    }
+    @Override
+    public List<RecommendDTO> getRecommendData() {
+
+        QRecommend recommend = QRecommend.recommend;
+
+        JPQLQuery<RecommendDTO> query = from(recommend).groupBy(recommend.recommend_date, recommend.
+                                product.prid, recommend.user.age, recommend.user.gender,
+                        recommend.product.brand, recommend.product.color
+                        , recommend.product.category, recommend.product.price)
+                .select(Projections.bean(RecommendDTO.class,( //DTO명과 동일하게 맞추기!
+                        Expressions.stringTemplate("TO_CHAR({0}, 'yyyy-MM-dd')", recommend.recommend_date).as("date")),
+                        recommend.product.prid.as("prId"),
+                        recommend.product.brand,
+                        recommend.product.color.as("clear_color"),
+                        recommend.product.category,
+                        recommend.product.price,
+                        recommend.quantity.sum().as("quantity"),
+                        recommend.click.sum().as("click"),
+                        recommend.style.sum().as("style"),
+                        recommend.user.age,
+                        recommend.user.gender));
+
+
+        List<RecommendDTO> recommendList = query.fetch();
+
+
+        return recommendList;
+    }
 }

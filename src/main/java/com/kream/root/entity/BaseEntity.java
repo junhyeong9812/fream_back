@@ -18,6 +18,6 @@ import java.time.LocalDateTime;
 abstract class BaseEntity {
     @CreatedDate
     @Column(name = "ub_date", updatable = false)
-    private LocalDateTime ubDate;
+    private LocalDate ubDate;
 
 }

@@ -34,7 +34,7 @@ public class bigDataImpl extends QuerydslRepositorySupport implements bigData{
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(userBigData.userListDTO.eq(userList));
         booleanBuilder.and(userBigData.product.eq(product));
-        booleanBuilder.and(userBigData.ub_date.eq(localDate));
+        booleanBuilder.and(userBigData.ubDate.eq(localDate));
 
         query.where(booleanBuilder);
 

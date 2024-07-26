@@ -1,13 +1,12 @@
 package com.kream.root.MainAndShop.repository.ProductRecommend;
 
 import com.kream.root.MainAndShop.dto.OneProductDTO;
-import com.kream.root.MainAndShop.dto.RecommendDTO;
+import com.kream.root.MainAndShop.dto.Recommend.RecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public interface Recommend {
+public interface ProductRecommend {
     //추천을 위한 간단한 연산 필요할 경우
     //브랜드 별 추천
     List<brandDTO> getBrandCnt();
@@ -15,5 +14,5 @@ public interface Recommend {
     // 이미지와 상품데이터의 결합
     List<OneProductDTO> getOneProduct(List<Long> pridList);
 
-//    List<RecommendDTO> createRecommendTable(LocalDateTime date);
+     List<RecommendDTO> getRecommendData() ;
 }
