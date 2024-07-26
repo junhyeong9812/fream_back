@@ -25,7 +25,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-@ToString(exclude = {"refundAccount", "orders"})
+@ToString(exclude = {"refundAccount", "boards", "replies", "wishes", "styles", "styleReplies", "styleLikes"})
 @Getter
 @Setter
 @Entity
@@ -194,6 +194,8 @@ public class UserListDTO implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
+
+
 
     @Override
     public String getPassword() {

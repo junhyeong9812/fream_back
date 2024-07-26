@@ -159,4 +159,6 @@ public class UserAccessLogServiceImpl implements UserAccessLogService{
         userProductInteractionRepository.save(interaction);
     }
 
+
+
 }

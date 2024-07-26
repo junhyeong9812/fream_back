@@ -27,7 +27,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
  protected void doFilterInternal(HttpServletRequest servletRequest,  HttpServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
 	 
 	 
-	 String token= servletRequest.getParameter("token");
+//	 String token= servletRequest.getParameter("token");
+     String token = resolveToken(servletRequest);
 	 LOGGER.info("[doFilterInternal] token : {}", token  );
 
 	
@@ -46,4 +47,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      servletRequest.setAttribute("token", token); // need this code in order to NormalAuthController test can obtain the token data
      filterChain.doFilter(servletRequest, servletResponse);
  }
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
 }
