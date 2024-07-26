@@ -9,13 +9,17 @@ import com.kream.root.admin.repository.SellerProductRepository;
 import com.kream.root.entity.*;
 import com.kream.root.main.CSVParser.OrderData;
 import com.kream.root.main.CSVParser.ReadLineContext;
+import com.kream.root.order.PaymentInfo;
+import com.kream.root.order.repository.DeliveryRepository;
 import com.kream.root.order.repository.OrdersRepository;
+import com.kream.root.order.service.OrderService;
 import com.kream.root.style.repository.StyleRepository;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -23,6 +27,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @SpringBootTest
 @Log4j2
@@ -35,6 +40,11 @@ public class orderTest {
 
     @Autowired
     private UserListRepository userRepository;
+    @Autowired
+    private DeliveryRepository deliveryRepository;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @Autowired
@@ -43,11 +53,13 @@ public class orderTest {
     @Autowired
     SellerProductRepository sellerProductRepository;
 
+    private static final Random random = new Random();
 
 @Transactional
+@Rollback(false)
 @Test
 public void dataAdd() throws IOException {
-    String fileName = "/Users/82104/final_project/database/kream_new_product_v2_recommend_orderUser.csv";
+    String fileName = "C:\\project/DataBaseETLProcessing/kream_new_product_v2_recommend_orderUser_randomized_updated.csv";
     log.info(fileName);
     List<OrderData> orderDataList;
     try {
@@ -56,8 +68,11 @@ public void dataAdd() throws IOException {
 
         orderDataList.forEach(data -> {
             try {
-                UserListDTO user = userRepository.findById(data.getUser())
+                int ulid = data.getUser();
+                log.info("Processing userId: " + ulid);
+                UserListDTO user = userRepository.findById(ulid)
                         .orElseThrow(() -> new RuntimeException("User not found"));
+                log.info("Found user: " + user);
                 Product product = productRepository.findById(data.getPrId())
                         .orElseThrow(() -> new RuntimeException("Product not found"));
                 SellerProduct sellerProduct = sellerProductRepository.findById(1L)
@@ -166,6 +181,66 @@ public void dataAdd() throws IOException {
             log.info("style info : {}", data);
         });
     }
+
+//    @Test
+//    @Transactional
+//    public void testCreateDummyOrders() {
+//        for (int i = 0; i < 1000; i++) {
+//            PaymentInfo paymentInfo = generateDummyPaymentInfo();
+//            UserListDTO user = getRandomUser();
+//            orderService.createOrder(paymentInfo, user);
+//        }
+//    }
+//    private PaymentInfo generateDummyPaymentInfo() {
+//        List<Long> productIds = new ArrayList<>();
+//        List<Integer> quantities = new ArrayList<>();
+//        for (int i = 0; i < random.nextInt(5) + 1; i++) {
+//            productIds.add((long) (random.nextInt(299) + 1));
+//            quantities.add( 1);
+//        }
+//
+//        return PaymentInfo.builder()
+//                .productIds(productIds)
+//                .quantities(quantities)
+//                .applyNum(randomString(10))
+//                .bankName("Bank " + randomString(5))
+//                .buyerAddr("Address " + randomString(10))
+//                .buyerEmail(randomString(10) + "@example.com")
+//                .buyerName("Buyer " + randomString(5))
+//                .buyerPostcode("12345")
+//                .buyerTel("010-" + random.nextInt(9000) + 1000 + "-" + random.nextInt(9000) + 1000)
+//                .cardName("Card " + randomString(5))
+//                .cardNumber(randomString(16))
+//                .cardQuota(random.nextInt(12) + 1)
+//                .currency("KRW")
+//                .customData(null)
+//                .impUid(randomString(10))
+//                .merchantUid(randomString(10))
+//                .productName("Product " + randomString(10))
+//                .paidAmount(random.nextDouble() * 1000)
+//                .paidAt(System.currentTimeMillis() / 1000)
+//                .payMethod("Credit Card")
+//                .pgProvider("PG Provider " + randomString(5))
+//                .pgTid(randomString(10))
+//                .pgType("PG Type " + randomString(5))
+//                .receiptUrl("http://example.com/receipt/" + randomString(10))
+//                .status("Paid")
+//                .success(true)
+//                .build();
+//    }
+//    private UserListDTO getRandomUser() {
+//        Integer userId = random.nextInt(500) + 1;
+//        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+//    }
+//    private String randomString(int length) {
+//        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//        StringBuilder result = new StringBuilder();
+//        while (length-- > 0) {
+//            result.append(characters.charAt(random.nextInt(characters.length())));
+//        }
+//        return result.toString();
+//    }
+
 
 
 }

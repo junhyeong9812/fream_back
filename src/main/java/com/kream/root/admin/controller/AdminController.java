@@ -1,15 +1,21 @@
 package com.kream.root.admin.controller;
 
 
+import com.kream.root.Adjustment.PriceAdjustmentService;
 import com.kream.root.Login.model.SignInResultDTO;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.admin.domain.Address;
 import com.kream.root.admin.domain.Admin;
+import com.kream.root.admin.jwt.AdminJwtTokenProvider;
 import com.kream.root.admin.service.AdminService;
+import com.kream.root.admin.service.AdminSign.AdminSignService;
+import com.kream.root.admin.service.AdminSign.TokenWhitelistService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +43,59 @@ public class AdminController {
 
 //    private final String uploadDir = "C:\\jsp_file\\";
 
+    @Autowired
+    private PriceAdjustmentService priceAdjustmentService;
+
+    @Autowired
+    private AdminSignService adminSignService;
+
+    @Autowired
+    private AdminJwtTokenProvider adminJwtTokenProvider;
+
+    @Autowired
+    private TokenWhitelistService tokenWhitelistService;
+
+    @GetMapping("/info")
+    public ResponseEntity<Admin> getAdminInfo(HttpServletRequest request) {
+        System.out.println("인포request = " + request);
+        String token = resolveToken(request);
+        System.out.println("AdminInfotoken = " + token);
+        if (token != null && adminJwtTokenProvider.validateToken(token)) {
+            String userId = adminJwtTokenProvider.getUsername(token);
+            Admin admin = adminSignService.getAdminInfo(token);
+            if (admin != null) {
+                return ResponseEntity.ok(admin);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+//    @GetMapping("/adjust-prices")
+//    public String adjustPrices(@RequestParam("startDate") String startDateStr, @RequestParam("endDate") String endDateStr) {
+//        LocalDate startDate = LocalDate.parse(startDateStr);
+//        LocalDate endDate = LocalDate.parse(endDateStr);
+//        priceAdjustmentService.adjustPricesForDateRange(startDate, endDate);
+//        return "Prices adjusted successfully.";
+//    }
+//@GetMapping("/adjust-prices")
+//public String adjustPrices(
+//        @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+//        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+//
+//    priceAdjustmentService.adjustPricesForDateRange(startDate, endDate);
+//    return "Prices adjusted successfully.";
+//}
+//    http://localhost:3001/adminPage/adjust-prices?startDate=2024-06-27&endDate=2024-07-25
+@GetMapping("/adjust-prices")
+public String adjustPrices(
+        @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+    priceAdjustmentService.adjustPricesForDateRange(startDate, endDate);
+    return "Prices adjusted successfully.";
+}
+
+
 
     @GetMapping("/adminUser")
     public List<Admin> getAllAdmins() {
@@ -47,18 +107,58 @@ public class AdminController {
         Admin admin = adminService.findOne(id);
         return ResponseEntity.ok(admin);
     }
-    @PostMapping("/loginCheck")
-    public int loginCheck(@RequestBody Map<String, String> loginData) {
+//    @PostMapping("/loginCheck")
+//    public int loginCheck(@RequestBody Map<String, String> loginData) {
+//        String userId = loginData.get("userId");
+//        String userPw = loginData.get("userPw");
+//
+//        Admin admin = adminService.findOne(Long.parseLong(userId));
+//
+//       if(admin!=null&&admin.getPassword().equals(userPw)){
+//            return 1;
+//        }else {
+//           return 0;
+//       }
+//    }
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
         String userId = loginData.get("userId");
         String userPw = loginData.get("userPw");
 
-        Admin admin = adminService.findOne(Long.parseLong(userId));
+        String token = adminSignService.loginAndGenerateToken(userId, userPw);
+        System.out.println("토큰 생성 완료:token = " + token);
+        if (token != null) {
+            return ResponseEntity.ok(token);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
+    @PostMapping("/loginCheck")
+    public ResponseEntity<String> loginCheck(HttpServletRequest request) {
+        System.out.println("로그인체크 = " + request);
+        String token = resolveToken(request);
 
-       if(admin!=null&&admin.getPassword().equals(userPw)){
-            return 1;
-        }else {
-           return 0;
-       }
+        if (token != null && adminJwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.ok("Token is valid");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid or expired");
+        }
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        String token = resolveToken(request);
+        if (token != null) {
+            tokenWhitelistService.removeTokenFromWhitelist(token);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     @PutMapping("/modifyAdmin/{id}")

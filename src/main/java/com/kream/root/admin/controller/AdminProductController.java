@@ -146,4 +146,9 @@ public class AdminProductController {
         List<SellerProduct> products = productService.getUnsoldProducts();
         return ResponseEntity.ok(products);
     }
+    @GetMapping("/sold")
+    public ResponseEntity<List<SellerProduct>> getSoldProducts() {
+        List<SellerProduct> products = productService.getSoldProducts();
+        return ResponseEntity.ok(products);
+    }
 }

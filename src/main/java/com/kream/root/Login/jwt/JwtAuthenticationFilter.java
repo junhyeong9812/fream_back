@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	 LOGGER.info("[doFilterInternal] token : {}", token  );
 
 	
-	 
+
 	 
      //String token = jwtTokenProvider.resolveToken(servletRequest); 헤더로 넘겨주게 코드 바꾸면 이거써야함  근데 헤더로 구현 못할듯
      LOGGER.info("[doFilterInternal] token 값 추출 완료. token : {}", token);

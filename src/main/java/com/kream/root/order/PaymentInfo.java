@@ -1,9 +1,16 @@
 package com.kream.root.order;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentInfo {
     private String applyNum;
     private String bankName;

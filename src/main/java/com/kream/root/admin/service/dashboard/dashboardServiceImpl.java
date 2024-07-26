@@ -105,11 +105,20 @@ public class dashboardServiceImpl implements DashboardService{
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = startOfDay.plusDays(1);
-
+        //추가
+        long totalOrders = ordersRepository.count();
         long newOrdersToday = ordersRepository.countByOrderDateBetween(startOfDay, endOfDay);
 
+//        Map<String, Object> stats = new HashMap<>();
+//        stats.put("newOrdersToday", newOrdersToday);
+        double orderGrowthRate = totalOrders > 0 ? (double) newOrdersToday / totalOrders * 100 : 0;
+        double progress = orderGrowthRate / 100;  // Converts percentage to a 0-1 range
+
         Map<String, Object> stats = new HashMap<>();
+        stats.put("totalOrders", totalOrders);
         stats.put("newOrdersToday", newOrdersToday);
+        stats.put("orderGrowthRate", orderGrowthRate);
+        stats.put("progress", progress);  // Progress value between 0 and 1
 
         return stats;
     }
@@ -123,12 +132,21 @@ public class dashboardServiceImpl implements DashboardService{
         long totalUsers = userListRepository.count();
         long newUsersToday = userListRepository.countByJoinDateBetween(today, today.plusDays(1));
 
-        double userGrowthRate = (double) newUsersToday / totalUsers * 100;
+        //
+        double userGrowthRate = totalUsers > 0 ? (double) newUsersToday / totalUsers * 100 : 0;
+        double progress = userGrowthRate / 100;  // Converts percentage to a 0-1 range
 
         Map<String, Object> stats = new HashMap<>();
         stats.put("totalUsers", totalUsers);
         stats.put("newUsersToday", newUsersToday);
         stats.put("userGrowthRate", userGrowthRate);
+        stats.put("progress", progress);
+//        double userGrowthRate = (double) newUsersToday / totalUsers * 100;
+//
+//        Map<String, Object> stats = new HashMap<>();
+//        stats.put("totalUsers", totalUsers);
+//        stats.put("newUsersToday", newUsersToday);
+//        stats.put("userGrowthRate", userGrowthRate);
 
         return stats;
     }
@@ -139,10 +157,21 @@ public class dashboardServiceImpl implements DashboardService{
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = startOfDay.plusDays(1);
 
+//        long newStylesToday = styleRepository.countByStyleDateBetween(startOfDay, endOfDay);
+//
+//        Map<String, Object> stats = new HashMap<>();
+//        stats.put("newStylesToday", newStylesToday);
+        long totalStyles = styleRepository.count();
         long newStylesToday = styleRepository.countByStyleDateBetween(startOfDay, endOfDay);
 
+        double styleGrowthRate = totalStyles > 0 ? (double) newStylesToday / totalStyles * 100 : 0;
+        double progress = styleGrowthRate / 100;  // Converts percentage to a 0-1 range
+
         Map<String, Object> stats = new HashMap<>();
+        stats.put("totalStyles", totalStyles);
         stats.put("newStylesToday", newStylesToday);
+        stats.put("styleGrowthRate", styleGrowthRate);
+        stats.put("progress", progress);  // Progress value between 0 and 1
 
         return stats;
     }

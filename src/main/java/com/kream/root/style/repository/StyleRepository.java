@@ -71,12 +71,18 @@ public class StyleRepository {
         return query.getResultList();
     }
 
-//    public List<Style> findByStyleDate(LocalDateTime styleDate){ // date 기준 데이터 불러오기
-//        String jpql = "SELECT s FROM Style s WHERE s.styleDate = :styleDate";
-//        return entityManager.createQuery(jpql, Style.class)
-//                .setParameter("styleDate", styleDate)
-//                .getResultList();
-//    }
+    public List<Style> findByStyleDate(LocalDateTime styleDate){ // date 기준 데이터 불러오기
+        String jpql = "SELECT s FROM Style s WHERE s.styleDate = :styleDate";
+        return entityManager.createQuery(jpql, Style.class)
+                .setParameter("styleDate", styleDate)
+                .getResultList();
+    }
+
+    public long count() {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(s) FROM Style s", Long.class);
+        return query.getSingleResult();
+    }
 
 
 }

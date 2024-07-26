@@ -145,6 +145,9 @@ public class AdminProductService {
     public List<SellerProduct> getUnsoldProducts() {
         return sellerProductRepository.findByIsSold('N');
     }
+    public List<SellerProduct> getSoldProducts() {
+        return sellerProductRepository.findByIsSold('Y');
+    }
 
     public List<SellerProduct> getAllProducts() {
         return sellerProductRepository.findAll();
