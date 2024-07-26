@@ -32,6 +32,22 @@ public class SellerProduct {
 
     @Column(nullable = false)
     private String proSize;
+    @Column(nullable = false)
+    private String Address;
+    @Column(nullable = false)
+    private String accountHolder;
+
+    @Column(nullable = false)
+    private String bankName;
+
+    @Column(nullable = false)
+    private String accountNumber;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String phoneNumber;
 
     @Column(nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
     private char isSold = 'N';

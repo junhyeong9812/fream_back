@@ -57,4 +57,5 @@ public class Admin {
         this.notes = notes;
         this.address = address;
     }
+
 }

@@ -4,6 +4,10 @@ import com.kream.root.Detail.repository.UserBigData.bigData;
 import com.kream.root.entity.UserBigData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserBigDataRepository extends JpaRepository<UserBigData, Long>, bigData {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
+public interface UserBigDataRepository extends JpaRepository<UserBigData, Long>, bigData {
+    public List<UserBigData> findByUbDate(LocalDate date);
 }

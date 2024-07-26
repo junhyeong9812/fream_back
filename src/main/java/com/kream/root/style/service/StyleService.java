@@ -7,15 +7,22 @@ import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.entity.Style;
 import com.kream.root.entity.StyleLike;
 import com.kream.root.entity.StyleReply;
+import com.kream.root.style.DTO.StyleDTO;
 import com.kream.root.style.repository.StyleLikeRepository;
 import com.kream.root.style.repository.StyleReplyRepository;
 import com.kream.root.style.repository.StyleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class StyleService {
@@ -38,7 +45,7 @@ public class StyleService {
     }
 
     @Transactional
-    public Style createStyle(String userId, Long productId, String content) {
+    public Style createStyle(String userId, Long productId, String content, MultipartFile image) {
         Optional<UserListDTO> user = userRepository.findByUserId(userId);
         Optional<Product> product = productRepository.findById(productId);
 
@@ -48,11 +55,47 @@ public class StyleService {
             style.setProduct(product.get());
             style.setContent(content);
             style.setStyleDate(LocalDateTime.now());
+            if (image != null && !image.isEmpty()) {
+                String imgName = saveImage(image, userId);
+                style.setStyleImgName(imgName);
+            }
             return styleRepository.save(style);
         } else {
             throw new IllegalArgumentException("User or Product not found");
         }
     }
+    private String saveImage(MultipartFile image, String userId) {
+        String uploadDir = "C:/jsp_file/style/"; // 실제 파일 저장 경로로 수정
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs(); // 디렉토리가 없으면 생성
+        }
+
+        String originalFilename = image.getOriginalFilename();
+        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String newFilename = userId + "_" + UUID.randomUUID().toString() + extension;
+
+        try {
+            File file = new File(uploadDir + newFilename);
+            image.transferTo(file);
+        } catch (IOException e) {
+            throw new RuntimeException("이미지 저장에 실패했습니다.", e);
+        }
+
+        return newFilename;
+    }
+    public List<StyleDTO> getAllStyles() {
+        return styleRepository.findAll().stream()
+                .map(style -> StyleDTO.builder()
+                        .id(style.getId())
+                        .imageUrl( "http://localhost:3000/styles/image/"+style.getStyleImgName()) // 이미지 저장 경로에 맞게 변경
+                        .profileUrl(style.getUser().getProfileUrl())
+                        .username(style.getUser().getUserName())
+                        .content(style.getContent())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     public Optional<Style> updateStyle(Long styleId, String content) {
@@ -109,4 +152,5 @@ public class StyleService {
             styleReplyRepository.delete(reply);
         }
     }
+
 }

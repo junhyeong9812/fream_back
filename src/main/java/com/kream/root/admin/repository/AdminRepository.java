@@ -37,6 +37,12 @@ public class AdminRepository {
         //이렇게 하면 파라미터가 바인딩 되고 결과값을 리졀트 리스트를 통해 가져온다.
         //
     }
+    public Admin findByUsername(String username) {
+        List<Admin> results = em.createQuery("select a from Admin a where a.username = :username", Admin.class)
+                .setParameter("username", username)
+                .getResultList();
+        return results.isEmpty() ? null : results.get(0);
+    }
     //정보 업데이트
     public Admin update(Admin admin) {
         return em.merge(admin);

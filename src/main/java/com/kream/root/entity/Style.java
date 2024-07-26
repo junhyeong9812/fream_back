@@ -45,7 +45,8 @@ public class Style {
             foreignKey = @ForeignKey(name = "FK_STYLE_PRODUCT"))
     @JsonBackReference("product-style")
     private Product product;
-
+    @Column(name = "StyleImgName")
+    private String StyleImgName;
     @Column(name = "content")
     private String content;
 

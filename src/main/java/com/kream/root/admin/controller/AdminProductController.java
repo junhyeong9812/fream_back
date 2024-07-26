@@ -3,6 +3,7 @@ package com.kream.root.admin.controller;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.admin.service.AdminProductService;
 import com.kream.root.entity.SellerProduct;
+import com.kream.root.entity.Style;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -23,6 +24,16 @@ import java.util.List;
 public class AdminProductController {
     @Autowired
     private AdminProductService productService;
+
+    @GetMapping("/style")
+    public List<Style> getAllStyles() {
+        return productService.getAllStyles();
+    }
+
+    @GetMapping("/style/{id}")
+    public Style getStyleById(@PathVariable Long id) {
+        return productService.getStyleById(id);
+    }
 
     @PostMapping
     public ResponseEntity<Product> createProduct(
@@ -133,6 +144,11 @@ public class AdminProductController {
     @GetMapping("/unsold")
     public ResponseEntity<List<SellerProduct>> getUnsoldProducts() {
         List<SellerProduct> products = productService.getUnsoldProducts();
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/sold")
+    public ResponseEntity<List<SellerProduct>> getSoldProducts() {
+        List<SellerProduct> products = productService.getSoldProducts();
         return ResponseEntity.ok(products);
     }
 }

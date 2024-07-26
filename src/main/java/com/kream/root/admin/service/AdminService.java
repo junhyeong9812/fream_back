@@ -6,6 +6,8 @@ import com.kream.root.admin.domain.Admin;
 import com.kream.root.admin.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder; // PasswordEncoder로 정의
 
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
@@ -26,6 +29,8 @@ public class AdminService {
     public Long join(Admin Admin){
         //같은 이름의 중복 회원 확인
         validateDuplicateAdmin(Admin);
+        // 비밀번호 암호화
+        Admin.setPassword(passwordEncoder.encode(Admin.getPassword()));
         //회원 정보 저장
         adminRepository.save(Admin);
 

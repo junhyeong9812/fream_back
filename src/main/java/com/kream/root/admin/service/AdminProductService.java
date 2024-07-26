@@ -5,6 +5,8 @@ import com.kream.root.MainAndShop.domain.ProductImg;
 import com.kream.root.admin.repository.AdminProductRepository;
 import com.kream.root.admin.repository.SellerProductRepository;
 import com.kream.root.entity.SellerProduct;
+import com.kream.root.entity.Style;
+import com.kream.root.style.repository.StyleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +28,22 @@ public class AdminProductService {
 
     private final SellerProductRepository sellerProductRepository;
 
+    private final StyleRepository styleRepository;
     private final String uploadDir = "C:/jsp_file/";
 
-    public AdminProductService(AdminProductRepository adminProductRepository, SellerProductRepository sellerProductRepository) {
+    public List<Style> getAllStyles() {
+        return styleRepository.findAll();
+    }
+
+    public Style getStyleById(Long id) {
+        return styleRepository.findById(id)
+                .orElse(null);
+    }
+
+    public AdminProductService(AdminProductRepository adminProductRepository, SellerProductRepository sellerProductRepository,StyleRepository styleRepository) {
         this.adminProductRepository = adminProductRepository;
         this.sellerProductRepository = sellerProductRepository;
+        this.styleRepository=styleRepository;
     }
 
     public Product saveProduct(Product product, MultipartFile mainImage, List<MultipartFile> subImages) throws IOException {
@@ -131,6 +144,9 @@ public class AdminProductService {
     }
     public List<SellerProduct> getUnsoldProducts() {
         return sellerProductRepository.findByIsSold('N');
+    }
+    public List<SellerProduct> getSoldProducts() {
+        return sellerProductRepository.findByIsSold('Y');
     }
 
     public List<SellerProduct> getAllProducts() {

@@ -25,7 +25,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-@ToString(exclude = {"refundAccount", "orders"})
+@ToString(exclude = {"refundAccount", "boards", "replies", "wishes", "styles", "styleReplies", "styleLikes"})
 @Getter
 @Setter
 @Entity
@@ -93,12 +93,12 @@ public class UserListDTO implements UserDetails {
     @Column(name = "USER_BIO", length = 500)
     private String userBio;
 
-    @Column(name = "RECEIVE_EMAIL", length = 1)
+    @Column(name = "RECEIVE_EMAIL", length = 1, columnDefinition = "default '1'")
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveEmail;
 
-    @Column(name = "RECEIVE_MESSAGE", length = 1)
+    @Column(name = "RECEIVE_MESSAGE", length = 1, columnDefinition = "default '1'")
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveMessage;
@@ -201,6 +201,8 @@ public class UserListDTO implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
+
+
 
     @Override
     public String getPassword() {

@@ -27,11 +27,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
  protected void doFilterInternal(HttpServletRequest servletRequest,  HttpServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
 	 
 	 
-	 String token= servletRequest.getParameter("token");
+//	 String token= servletRequest.getParameter("token");
+     String token = resolveToken(servletRequest);
 	 LOGGER.info("[doFilterInternal] token : {}", token  );
 
 	
-	 
+
 	 
      //String token = jwtTokenProvider.resolveToken(servletRequest); 헤더로 넘겨주게 코드 바꾸면 이거써야함  근데 헤더로 구현 못할듯
      LOGGER.info("[doFilterInternal] token 값 추출 완료. token : {}", token);
@@ -46,4 +47,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      servletRequest.setAttribute("token", token); // need this code in order to NormalAuthController test can obtain the token data
      filterChain.doFilter(servletRequest, servletResponse);
  }
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
 }

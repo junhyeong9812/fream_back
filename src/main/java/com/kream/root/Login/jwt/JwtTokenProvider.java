@@ -11,6 +11,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,18 +30,25 @@ public class JwtTokenProvider {
 	private final Logger LOGGER=LoggerFactory.getLogger(JwtTokenProvider.class);
     private final UserDetailsService userDetailsService; // Spring Security 에서 제공하는 서비스 레이어
     private final TokenBlacklistService tokenBlacklistService;
+
+
+	public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
+							TokenBlacklistService tokenBlacklistService) {
+		this.userDetailsService = userDetailsService;
+		this.tokenBlacklistService = tokenBlacklistService;
+	}
 	
 	
     @Value("${springboot.jwt.secret}")
     private String secretKey; // Loaded from application.properties // this will replace the secret key that is defined in application.properties if program failed to scan it in application.propertie
 	
     private final long tokenValidMillisecond=1000L * 60 * 60;
-	public JwtTokenProvider(UserDetailsService userDetailsService, TokenBlacklistService tokenBlacklistService) {
-		
-		this.userDetailsService = userDetailsService;
-		this.tokenBlacklistService = tokenBlacklistService;
-	
-	}
+//	public JwtTokenProvider(UserDetailsService userDetailsService, TokenBlacklistService tokenBlacklistService) {
+//
+//		this.userDetailsService = userDetailsService;
+//		this.tokenBlacklistService = tokenBlacklistService;
+//
+//	}
 	
 	
 	

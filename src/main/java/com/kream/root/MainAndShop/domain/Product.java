@@ -8,6 +8,7 @@ import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfo;
 import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfoConverter;
 //import com.kream.root.entity.Style;
 //import com.kream.root.entity.Wish;
+import com.kream.root.entity.PriceHistory;
 import com.kream.root.entity.Style;
 import com.kream.root.entity.Wish;
 import jakarta.persistence.*;
@@ -72,6 +73,11 @@ public class Product extends BaseEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("product-style")
     private Set<Style> styles;
+
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonManagedReference("product-priceHistory")
+//    @Builder.Default
+//    private List<PriceHistory> priceHistories = new ArrayList<>();
 
 //    @JoinColumn(name = "prid")
 //    @OneToOne(fetch = FetchType.LAZY)

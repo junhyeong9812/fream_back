@@ -28,10 +28,10 @@ public class QUserBigData extends EntityPathBase<UserBigData> {
 
     public final NumberPath<Integer> ub_clickCount = createNumber("ub_clickCount", Integer.class);
 
-    //inherited
-    public final DatePath<java.time.LocalDate> ub_date = _super.ub_date;
-
     public final NumberPath<Long> ub_id = createNumber("ub_id", Long.class);
+
+    //inherited
+    public final DatePath<java.time.LocalDate> ubDate = _super.ubDate;
 
     public final com.kream.root.Login.model.QUserListDTO userListDTO;
 

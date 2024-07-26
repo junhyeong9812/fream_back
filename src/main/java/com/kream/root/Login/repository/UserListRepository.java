@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,8 @@ public interface UserListRepository extends JpaRepository<UserListDTO, Integer> 
 //    Optional<UserListDTO> findByUserId(String id);
     Optional<UserListDTO> findByUserId(String userId);
     List<ProfileNameMapping> findAllByProfileNameIsNotNull();
+    List<UserListDTO> findByJoinDateBetween(LocalDate start, LocalDate end);
+    long countByJoinDateBetween(LocalDate start, LocalDate end);
 	@Modifying
     @Transactional
     @Query("UPDATE UserListDTO u SET u.lastLoginTime = CURRENT_TIMESTAMP WHERE u.userId = :userId")

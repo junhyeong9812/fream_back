@@ -70,6 +70,7 @@ public class DetailController {
     @ApiResponse(responseCode = "200", description = "products by Brand 정보 가져오기 성공")
     @GetMapping(value = "/{prId}/brand")
     public ResponseEntity<List<OneProductDTO>> getProductsByBrand(@PathVariable("prId") long prId) {
+
         //log.info("Fetching products with brand: {} excluding prId: {}", brand, prId);
         try {
             //들어온 prId를 통해 해당 제품의 브랜드를 추출하여 동일한 브랜드의 다른 제품들을 반환
@@ -87,7 +88,9 @@ public class DetailController {
     )
     @ApiResponse(responseCode = "200", description = "products by gender 정보 가져오기 성공")
     @GetMapping(value = "/{prId}/gender")
-    public ResponseEntity<List<OneProductDTO>> getProductsByGender(@PathVariable("prId") long prId) {
+
+    public ResponseEntity<List<OneProductDTO>> getProductsByGender(@PathVariable("prId") Long prId) {
+
         //log.info("Fetching products with gender: {} excluding prId: {}", gender, prId);
         try {
             //들어온 prId를 통해 해당 제품의 성별을 추출하여 동일한 성별의 다른 제품들을 반환
