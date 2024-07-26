@@ -34,6 +34,8 @@ public class QStyle extends EntityPathBase<Style> {
 
     public final DateTimePath<java.time.LocalDateTime> styleDate = createDateTime("styleDate", java.time.LocalDateTime.class);
 
+    public final StringPath StyleImgName = createString("StyleImgName");
+
     public final com.kream.root.Login.model.QUserListDTO user;
 
     public QStyle(String variable) {

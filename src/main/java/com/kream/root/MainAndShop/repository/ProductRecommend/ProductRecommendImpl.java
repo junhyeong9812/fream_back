@@ -3,7 +3,7 @@ package com.kream.root.MainAndShop.repository.ProductRecommend;
 
 import com.kream.root.MainAndShop.domain.QProduct;
 import com.kream.root.MainAndShop.domain.QProductImg;
-import com.kream.root.MainAndShop.dto.Recommend.RecommendDTO;
+import com.kream.root.MainAndShop.dto.Recommend.GenderAgeRecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.domain.Product;
 
@@ -16,6 +16,7 @@ import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Log4j2
@@ -63,15 +64,15 @@ public class ProductRecommendImpl extends QuerydslRepositorySupport implements P
     }
 
     @Override
-    public List<RecommendDTO> getRecommendData() {
+    public List<GenderAgeRecommendDTO> getRecommendData(LocalDate start, LocalDate end) {
 
         QRecommend recommend = QRecommend.recommend;
 
-        JPQLQuery<RecommendDTO> query = from(recommend).groupBy(recommend.recommend_date, recommend.
+        JPQLQuery<GenderAgeRecommendDTO> query = from(recommend).groupBy(recommend.recommend_date, recommend.
                                 product.prid, recommend.user.age, recommend.user.gender,
                         recommend.product.brand, recommend.product.color
                         , recommend.product.category, recommend.product.price)
-                .select(Projections.bean(RecommendDTO.class,( //DTO명과 동일하게 맞추기!
+                .select(Projections.bean(GenderAgeRecommendDTO.class,( //DTO명과 동일하게 맞추기!
                         Expressions.stringTemplate("TO_CHAR({0}, 'yyyy-MM-dd')", recommend.recommend_date).as("date")),
                         recommend.product.prid.as("prId"),
                         recommend.product.brand,
@@ -84,8 +85,41 @@ public class ProductRecommendImpl extends QuerydslRepositorySupport implements P
                         recommend.user.age,
                         recommend.user.gender));
 
+        query.where(recommend.recommend_date.between(start, end));
 
-        List<RecommendDTO> recommendList = query.fetch();
+        List<GenderAgeRecommendDTO> recommendList = query.fetch();
+
+
+        return recommendList;
+    }
+
+    public List<GenderAgeRecommendDTO> getGenderAgeRecommendData(int age, String gender) {
+
+        QRecommend recommend = QRecommend.recommend;
+
+        JPQLQuery<GenderAgeRecommendDTO> query = from(recommend).groupBy(recommend.recommend_date, recommend.
+                                product.prid, recommend.user.age, recommend.user.gender,
+                        recommend.product.brand, recommend.product.color
+                        , recommend.product.category, recommend.product.price)
+                .select(Projections.bean(GenderAgeRecommendDTO.class,( //DTO명과 동일하게 맞추기!
+                                Expressions.stringTemplate("TO_CHAR({0}, 'yyyy-MM-dd')", recommend.recommend_date).as("date")),
+                        recommend.product.prid.as("prId"),
+                        recommend.product.brand,
+                        recommend.product.color.as("clear_color"),
+                        recommend.product.category,
+                        recommend.product.price,
+                        recommend.quantity.sum().as("quantity"),
+                        recommend.click.sum().as("click"),
+                        recommend.style.sum().as("style"),
+                        recommend.user.age,
+                        recommend.user.gender));
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(recommend.user.age.between(age, age + 9));
+        booleanBuilder.and(recommend.user.gender.eq(gender));
+        query.where(booleanBuilder);
+
+        List<GenderAgeRecommendDTO> recommendList = query.fetch();
 
 
         return recommendList;

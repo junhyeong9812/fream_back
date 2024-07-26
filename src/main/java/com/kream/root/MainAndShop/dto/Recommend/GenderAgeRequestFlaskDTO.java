@@ -11,10 +11,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecommendGenderAgeDTO {
+public class GenderAgeRequestFlaskDTO {
 
     private String loginUser_gender;
     private int loginUser_age;
-    private List<RecommendDTO> recommendList;
+    private List<GenderAgeRecommendDTO> recommendList;
 
 }

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kream.root.Detail.repository.UserBigDataRepository;
 import com.kream.root.MainAndShop.dto.OneProductDTO;
-import com.kream.root.MainAndShop.dto.Recommend.RecommendGenderAgeDTO;
-import com.kream.root.MainAndShop.dto.Recommend.RecommendDTO;
+import com.kream.root.MainAndShop.dto.Recommend.GenderAgeRequestFlaskDTO;
+import com.kream.root.MainAndShop.dto.Recommend.GenderAgeRecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.repository.ProductRepository;
 import com.kream.root.MainAndShop.repository.RecommendRepository;
@@ -63,12 +63,16 @@ public class mainServiceImpl implements mainService {
     @Override
     @Transactional
     public List<String> getRecommendList(int age, String gender) throws JsonProcessingException {
-        List<RecommendDTO> total_data = recommendRepository.getRecommendData();
-        RecommendGenderAgeDTO result = new RecommendGenderAgeDTO(gender, age, total_data);
+        LocalDate end = LocalDate.now().minusDays(1);
+        LocalDate start = end.minusDays(15);
+
+        log.info(start);
+        log.info(end);
+
+        List<GenderAgeRecommendDTO> total_data = recommendRepository.getRecommendData(start, end);
+        GenderAgeRequestFlaskDTO result = new GenderAgeRequestFlaskDTO(gender, age, total_data);
 
         // 전체 성공
-
-
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -86,7 +90,7 @@ public class mainServiceImpl implements mainService {
         String url = "http://127.0.0.1:5000/recommendSys";
 
         //Flask 서버로 데이터를 전송하고 받은 응답 값을 return
-        return restTemplate.postForObject(url, entity, List.class);
+        return restTemplate.postForObject(url, entity, List.class); //이거는 return으로 내보낼 PRID 값들이라 LIst가 맞음
     }
 
     @Autowired

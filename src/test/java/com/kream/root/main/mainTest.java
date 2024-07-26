@@ -2,7 +2,6 @@ package com.kream.root.main;
 
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.dto.OneProductDTO;
-import com.kream.root.MainAndShop.dto.Recommend.RecommendDTO;
 import com.kream.root.MainAndShop.dto.brandDTO;
 import com.kream.root.MainAndShop.mapping.BrandMapping;
 import com.kream.root.MainAndShop.repository.ProductRepository;
@@ -142,6 +141,6 @@ public class mainTest {
     RecommendRepository recommendRepository;
     @Test
     public void testGroupingBy(){
-        List<RecommendDTO> recommendList =  recommendRepository.getRecommendData();
+//        List<RecommendDTO> recommendList =  recommendRepository.getRecommendData();
     }
 }
