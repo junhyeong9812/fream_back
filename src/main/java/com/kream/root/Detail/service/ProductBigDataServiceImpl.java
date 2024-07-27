@@ -33,7 +33,7 @@ public class ProductBigDataServiceImpl implements ProductBigDataService{
 
     @Override
     public UserBigData ClickUp(String User_id, Long PrId) {
-        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDate currentDate = LocalDate.now();
 
         UserListDTO userList = userListRepository.findByUserId(User_id).orElseGet(
                 ()-> {
