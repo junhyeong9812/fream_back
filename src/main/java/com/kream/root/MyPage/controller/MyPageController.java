@@ -6,7 +6,6 @@ import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MyPage.dto.addressDTO;
 //import com.kream.root.MyPage.repository.AddressBookRepository;
 import com.kream.root.MyPage.mapping.ImgMapper;
-import com.kream.root.MyPage.mapping.loginInfoMapping;
 import com.kream.root.MyPage.service.MyPageService;
 import com.kream.root.entity.AddressBook;
 import com.kream.root.order.repository.AddressBookRepository;
@@ -125,11 +124,17 @@ public class MyPageController {
         return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.OK);
     }
 
-    @PostMapping("profile") //로그인정보
+    @PutMapping("profile") //로그인정보
     public ResponseEntity<Optional<UserListDTO>> loginInfo(
             @CookieValue(value = "loginCookie") Cookie cookie,
-            @RequestBody(required = false) loginInfoMapping mapping
-            ){
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false, value = "userPw") String oldPassword,
+            @RequestParam(required = false, value = "newPw") String newPassword,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false, value = "uSize") String user_size,
+            @RequestParam(required = false, value = "receiveEmail ") String receive_email,
+            @RequestParam(required = false, value = "receiveMessage ") String receive_message
+    ){
         //이메일주소
         //비밀번호
         //휴대폰번호
@@ -142,25 +147,31 @@ public class MyPageController {
 
         Optional<UserListDTO> userData = null;
 
-        if (mapping.getEmail() != null ) {
-            userData = ms.changeEmail(userid, mapping.getEmail());
+        if (email != null ) {
+            userData = ms.changeEmail(userid, email);
         }
-        if (mapping.getOldPassword() != null && mapping.getNewPassword() != null ) {
-            userData = ms.changePassword(userid, mapping.getOldPassword(), mapping.getNewPassword());
+        if (oldPassword != null && newPassword != null ) {
+            userData = ms.changePassword(userid, oldPassword, newPassword);
             // null : 현재 비밀번호가 틀림
+            if (userData == null) {
+                // 현재 비밀번호가 틀림
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            } else {
+                return new ResponseEntity<>(userData, HttpStatus.OK);
+            }
         }
-        if (mapping.getPhone() != null ) {
-            userData = ms.changePhone(userid, mapping.getPhone());
+        if (phone != null ) {
+            userData = ms.changePhone(userid, phone);
             log.info(userData.get());
         }
-        if (mapping.getUser_size() != null ) {
-            userData = ms.changeUser_size(userid, mapping.getUser_size());
+        if (user_size != null ) {
+            userData = ms.changeUser_size(userid, user_size);
         }
-        if (mapping.getReceive_email() != null ) {
-            userData = ms.receiveEmail(userid, mapping.getReceive_email());
+        if (receive_email != null ) {
+            userData = ms.receiveEmail(userid, receive_email);
         }
-        if (mapping.getReceive_message() != null ) {
-            userData = ms.receiveMessage(userid, mapping.getReceive_message());
+        if (receive_message != null ) {
+            userData = ms.receiveMessage(userid, receive_message);
         }
 
         if (userData == null){
