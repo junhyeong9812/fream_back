@@ -1,8 +1,6 @@
 package com.kream.root.Detail.repository.productDetail;
 
 import com.kream.root.Detail.dto.OneProductDTO;
-import com.kream.root.Detail.dto.PriceChartDTO;
-import com.kream.root.MainAndShop.dto.brandDTO;
 
 import java.time.LocalDate;
 import java.util.List;

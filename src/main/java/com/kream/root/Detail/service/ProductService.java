@@ -1,9 +1,7 @@
 package com.kream.root.Detail.service;
 
 import com.kream.root.Detail.dto.OneProductDTO;
-import com.kream.root.Detail.dto.PriceChartDTO;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ProductService {

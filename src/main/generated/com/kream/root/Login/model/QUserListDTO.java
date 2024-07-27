@@ -36,6 +36,8 @@ public class QUserListDTO extends EntityPathBase<UserListDTO> {
 
     public final DatePath<java.time.LocalDate> joinDate = createDate("joinDate", java.time.LocalDate.class);
 
+    public final StringPath kakaoUser = createString("kakaoUser");
+
     public final DateTimePath<java.time.LocalDateTime> lastLoginTime = createDateTime("lastLoginTime", java.time.LocalDateTime.class);
 
     public final StringPath phone = createString("phone");

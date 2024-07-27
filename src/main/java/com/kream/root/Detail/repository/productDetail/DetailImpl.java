@@ -1,6 +1,5 @@
 package com.kream.root.Detail.repository.productDetail;
 
-import com.kream.root.Detail.dto.PriceChartDTO;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.MainAndShop.domain.QProduct;
 import com.kream.root.MainAndShop.domain.QProductImg;
@@ -139,6 +138,5 @@ public class DetailImpl extends QuerydslRepositorySupport implements Detail {
         dtoList.forEach(dto -> log.info(dto));
 
         return dtoList;
-
     }
 }

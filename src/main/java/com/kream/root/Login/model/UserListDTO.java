@@ -109,6 +109,14 @@ public class UserListDTO implements UserDetails {
     @Column(name = "FAVORITE_PRODUCTS", columnDefinition = "CLOB")
     private String favoriteProducts;
 
+    //카카오로그인 추가
+    @Column(name = "KAKAO_USER", length = 1, columnDefinition = "default '0'")
+    @NotNull
+    @Size(min = 1, max = 1)
+    private String kakaoUser;
+
+
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "USER_AUTHORITY", joinColumns = @JoinColumn(name = "UA_ID"))
     @Column(name = "AUTHORITY_NAME")
@@ -130,7 +138,7 @@ public class UserListDTO implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("user-wish")
     private List<Wish> wishes;
-//
+    //
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("user-style")
     private Set<Style> styles;
@@ -142,7 +150,6 @@ public class UserListDTO implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("user-styleLike")
     private Set<StyleLike> styleLikes;
-
 
     public void setRefundAccount(RefundAccount refundAccount) {
         if (refundAccount == null) {
@@ -368,5 +375,4 @@ public class UserListDTO implements UserDetails {
             return userListDTO;
         }
     }
-
 }

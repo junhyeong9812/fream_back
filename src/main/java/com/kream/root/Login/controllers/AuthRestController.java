@@ -212,5 +212,4 @@ public class AuthRestController {
 
 		return stringBuilder.toString();
 	}
-	
 }
