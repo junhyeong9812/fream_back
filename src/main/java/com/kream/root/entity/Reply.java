@@ -20,6 +20,7 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "replySeqGen")
     @SequenceGenerator(name = "replySeqGen", sequenceName = "reply_seq", allocationSize = 1)
+    @Column(name="REPLY_ID")
     private Long replyId;
 
     @ManyToOne(fetch = FetchType.LAZY)

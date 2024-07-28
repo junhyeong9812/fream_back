@@ -20,6 +20,7 @@ import lombok.*;
 public class AddressBook {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_book_seq_generator")
+    @Column(name ="ADDRESS_ID")
     private Long addressId;
     //주소록
 
@@ -33,7 +34,7 @@ public class AddressBook {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(name ="POSTAL_CODE",nullable = false)
     private String postalCode;
 
     @Column(nullable = false)

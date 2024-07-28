@@ -27,6 +27,7 @@ import lombok.*;
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_items_seq_generator")
+    @Column(name="ORDER_ITEM_ID",nullable = false)
     private Long orderItemId;
 
     @ManyToOne
