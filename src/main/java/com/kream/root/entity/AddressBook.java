@@ -46,7 +46,7 @@ public class AddressBook {
     @Column(nullable = false, columnDefinition = "CHAR(1) DEFAULT '0'")
     private char isDefault = '0';
     //처음0 만약 처음 등록한 주소지일 경우 1로 등록
-    @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
-    private AddressBook addressBook;
+//    @OneToOne
+//    @JoinColumn(name = "address_id", nullable = false)
+//    private AddressBook addressBook;
 }

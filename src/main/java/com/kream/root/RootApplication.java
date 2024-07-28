@@ -19,8 +19,6 @@ public class RootApplication {
 	}
 	@Bean
 	public RestTemplate restTemplate() { //rest 통신 , 현재는 flask 와 통신시 사용중
-
-
 		return new RestTemplate();
 	}
 
