@@ -37,8 +37,8 @@ public class UserBigData extends BaseEntity {
     @JoinColumn(name = "ub_prid", referencedColumnName = "prid")
     private Product product;
 
-    @Column
-    private int ub_clickCount;
+    @Column(name="ub_click_Count")
+    private Integer ub_clickCount;
 }
 
 

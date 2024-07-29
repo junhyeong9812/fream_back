@@ -1,0 +1,8 @@
+freamadmin_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g13a4d1e059fdde_freamadmin_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+freamadmin_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g13a4d1e059fdde_freamadmin_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+freamadmin_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g13a4d1e059fdde_freamadmin_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
