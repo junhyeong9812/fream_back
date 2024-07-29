@@ -22,7 +22,19 @@ public class QSellerProduct extends EntityPathBase<SellerProduct> {
 
     public static final QSellerProduct sellerProduct = new QSellerProduct("sellerProduct");
 
+    public final StringPath accountHolder = createString("accountHolder");
+
+    public final StringPath accountNumber = createString("accountNumber");
+
+    public final StringPath Address = createString("Address");
+
+    public final StringPath bankName = createString("bankName");
+
     public final ComparablePath<Character> isSold = createComparable("isSold", Character.class);
+
+    public final StringPath name = createString("name");
+
+    public final StringPath phoneNumber = createString("phoneNumber");
 
     public final com.kream.root.MainAndShop.domain.QProduct product;
 

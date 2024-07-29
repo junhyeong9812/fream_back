@@ -105,17 +105,14 @@ public class UserListDTO implements UserDetails {
     @Size(min = 1, max = 1)
     private String receiveMessage;
 
-    @Lob
     @Column(name = "BLOCKED_PROFILES", columnDefinition = "CLOB")
     private String blockedProfiles;
-    @Lob
+
     @Column(name = "FAVORITE_PRODUCTS", columnDefinition = "CLOB")
     private String favoriteProducts;
 
     //카카오로그인 추가
-
-    @Column(name = "KAKAO_USER", length = 1, columnDefinition = "CHAR(1) DEFAULT '0'")
-
+    @Column(name = "KAKAO_USER", length = 1, columnDefinition = "default '0'")
     @NotNull
     @Size(min = 1, max = 1)
     private String kakaoUser;
@@ -130,15 +127,14 @@ public class UserListDTO implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JsonManagedReference("user-refundAccount")
     private RefundAccount refundAccount;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("board-user")
+//    @JsonManagedReference("board-user")
     @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
     private List<Board> boards;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("user-reply")
+//    @JsonManagedReference("user-reply")
     private List<Reply> replies;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -17,22 +17,22 @@ import java.util.Map;
 @Log4j2
 public class ShopTest {
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Test
-    public void testAll(){
-        List<Product> pList = productRepository.findAll();
-        pList.forEach(data -> log.info(data));
-    }
-    @Test
-    public void testAllWithCat(){
-
-
-        List<OneProductDTO> pList = productRepository.totalList();
-        // 전체 성공
-        pList.forEach(data -> log.info(data));
-    }
+//    @Autowired
+//    private ProductRepository productRepository;
+//
+//    @Test
+//    public void testAll(){
+//        List<Product> pList = productRepository.findAll();
+//        pList.forEach(data -> log.info(data));
+//    }
+//    @Test
+//    public void testAllWithCat(){
+//
+//
+//        List<OneProductDTO> pList = productRepository.totalList();
+//        // 전체 성공
+//        pList.forEach(data -> log.info(data));
+//    }
 
 
 }

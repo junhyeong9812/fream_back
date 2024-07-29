@@ -2,13 +2,18 @@ package com.kream.root.Login.service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.kream.root.Login.Response.CommonResponse;
 import com.kream.root.Login.controllers.AuthRestController;
-import com.kream.root.Login.model.KakaoUserDTO;
-import com.kream.root.Login.model.UserListDTO;
+import com.kream.root.Login.jwt.JwtTokenProvider;
+import com.kream.root.Login.model.*;
 import com.kream.root.Login.repository.UserListRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,22 +27,33 @@ public class KakaoServiceImpl implements KakaoService{
     @Autowired
     UserListRepository userListRepository;
 
+    @Autowired
+    AuthRestController authRestController;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public UserListDTO setKakaoUserInfo(KakaoUserDTO kakaoUser) {
+        if (userListRepository.findByUserId(kakaoUser.getKakaoNickname()).isEmpty()) {
+            UserListDTO kakaoUserInfo = new UserListDTO.Builder()
+                    .userId(kakaoUser.getKakaoEmail().split("@")[0])
+                    .userPw(passwordEncoder.encode("password1111"))
+                    .userName(kakaoUser.getKakaoNickname())
+                    .gender("MAN")
+                    .age(20)
+                    .email(kakaoUser.getKakaoEmail())
+                    .phone("010-1111-1111")
+                    .profileName(AuthRestController.generateRandomString(10))
+                    .build();
 
-        UserListDTO kakaoUserInfo = new UserListDTO.Builder()
-                .userPw("password1111")
-                .userName(kakaoUser.getKakaoNickname())
-                .gender("female")
-                .age(20)
-                .email(kakaoUser.getKakaoEmail())
-                .phone("010-1111-1111")
-                .profileName(AuthRestController.generateRandomString(10))
-                .build();
-
-        userListRepository.save(kakaoUserInfo);
-
-        return kakaoUserInfo;
+            userListRepository.save(kakaoUserInfo);
+            return kakaoUserInfo;
+        }
+        UserListDTO user = userListRepository.findByUserId(kakaoUser.getKakaoNickname()).get();
+//        TempUserDTO dto =  new TempUserDTO(user.getUserId(), user.getUserPw());
+//        authRestController.loginCheck(dto, response);
+        return user;
     }
 
     @Override
@@ -53,6 +69,7 @@ public class KakaoServiceImpl implements KakaoService{
             //URL객체 생성
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            log.info(conn);
 
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -64,7 +81,7 @@ public class KakaoServiceImpl implements KakaoService{
 
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=2c38a672bc98d7bf79b19bbcaeb91eb6");
-            sb.append("&redirect_uri=http://localhost:3000/kakaoLogin");
+            sb.append("&redirect_uri=http://192.168.0.101:3001/kakaoLogin");
             sb.append("&code=" + authorization_code);
 
             bw.write(sb.toString());
@@ -164,4 +181,38 @@ public class KakaoServiceImpl implements KakaoService{
             return null;
         }
     }
+
+    // 결과 모델에 api 요청 성공 데이터를 세팅해주는 메소드
+    private void setSuccessResult(SignUpResultDTO result) {
+        result.setSuccess(true);
+        result.setCode(CommonResponse.SUCCESS.getCode());
+        result.setMsg(CommonResponse.SUCCESS.getMsg());
+    }
+    // 결과 모델에 api 요청 실패 데이터를 세팅해주는 메소드
+    private void setFailResult(SignUpResultDTO result) {
+        result.setSuccess(false);
+        result.setCode(CommonResponse.FAIL.getCode());
+        result.setMsg(CommonResponse.FAIL.getMsg());
+    }
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Transactional
+    @Override
+    public SignInResultDTO signIn(String userId) {
+        log.info("로그인 진행중");
+        UserListDTO userDTO = userListRepository.getByUserId(userId);
+
+        SignInResultDTO signInResultDTO = new SignInResultDTO(); // Initialize the object here
+        userListRepository.updateLastLoginTime(userId);
+        String token = jwtTokenProvider.createToken(String.valueOf(userDTO.getUserId()), userDTO.getRoles());
+        signInResultDTO = new SignInResultDTO.Builder()
+                    .token(token)
+                    .build();
+            setSuccessResult(signInResultDTO);
+            log.info("Generated token: {}", token);
+            System.out.println("token:" + token);
+            return signInResultDTO;
+        }
 }

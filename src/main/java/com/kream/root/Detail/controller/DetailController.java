@@ -124,7 +124,7 @@ public class DetailController {
 
     public void updateRecentProductsCookie(long prId, HttpServletRequest request, HttpServletResponse response) {
         String cookieName = "recentProducts";
-        int maxProducts = 10;
+        int maxProducts = 5;
 
         //현재 쿠키에서 최근 본 상품 ID 리스트 가져오기
         List<Long> recentProducts = getRecentProductsFromCookies(request);
