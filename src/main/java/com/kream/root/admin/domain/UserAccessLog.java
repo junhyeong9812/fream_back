@@ -14,13 +14,17 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class UserAccessLog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_access_log_seq")
+    @SequenceGenerator(name = "user_access_log_seq", sequenceName = "USER_ACCESS_LOG_SEQ", allocationSize = 1)
     private Long id;
-
+    @Column(name = "REFERER_URL")
     private String refererUrl;
+    @Column(name = "USER_AGENT")
     private String userAgent;
     private String os;
     private String browser;
+    @Column(name = "DEVICE_TYPE")
     private String deviceType;
+    @Column(name = "ACCESS_TIME")
     private LocalDateTime accessTime = LocalDateTime.now();
 }

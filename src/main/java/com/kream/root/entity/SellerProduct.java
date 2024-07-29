@@ -20,6 +20,7 @@ import lombok.*;
 public class SellerProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seller_product_seq_generator")
+    @Column(name = "SELLER_PRODUCT_ID")
     private Long sellerProductId;
 
     @ManyToOne

@@ -21,6 +21,7 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardSeqGen")
     @SequenceGenerator(name = "boardSeqGen", sequenceName = "board_seq", allocationSize = 1)
+    @Column(name = "BOARD_ID")
     private Long boardId;
 
     @ManyToOne(fetch = FetchType.LAZY)

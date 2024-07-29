@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 public class ProductQna {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_qna_seq_generator")
+    @Column(name = "QNA_ID")
     private Long qnaId;
 
     @ManyToOne(fetch = FetchType.LAZY)
