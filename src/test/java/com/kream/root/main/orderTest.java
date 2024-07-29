@@ -190,7 +190,7 @@ public void dataAdd() throws IOException {
         });
     }
 
-<<<<<<< HEAD
+
 //    @Test
 //    @Transactional
 //    public void testCreateDummyOrders() {
@@ -252,6 +252,5 @@ public void dataAdd() throws IOException {
 
 
 
-=======
->>>>>>> 742c961135f8a214312833f60e330e5bf8417fe8
+
 }
