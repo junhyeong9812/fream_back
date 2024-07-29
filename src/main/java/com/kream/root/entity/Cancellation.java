@@ -32,30 +32,31 @@ public class Cancellation {
     @JoinColumn(name = "user_id", nullable = false)
     private UserListDTO user;
 
-    @Column(nullable = false)
+
+    @Column(name = "imp_uid", nullable = false)
     private String impUid;
 
-    @Column(nullable = false)
+    @Column(name = "merchant_uid", nullable = false)
     private String merchantUid;
 
-    @Column(nullable = false)
+    @Column(name = "amount", nullable = false)
     private double amount;
 
-    @Column(nullable = false)
+    @Column(name = "reason", nullable = false)
     private String reason;
 
-    @Column(nullable = false)
+    @Column(name = "cancelled_at", nullable = false)
     private LocalDateTime cancelledAt;
 
-    @Column(nullable = false)
+    @Column(name = "refund_holder", nullable = false)
     private String refundHolder;
 
-    @Column(nullable = false)
+    @Column(name = "refund_bank", nullable = false)
     private String refundBank;
 
-    @Column(nullable = false)
+    @Column(name = "refund_account", nullable = false)
     private String refundAccount;
 
-    @Column(nullable = false)
+    @Column(name = "refund_tel", nullable = false)
     private String refundTel;
 }

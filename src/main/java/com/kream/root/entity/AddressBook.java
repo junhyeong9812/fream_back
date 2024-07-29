@@ -20,6 +20,7 @@ import lombok.*;
 public class AddressBook {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_book_seq_generator")
+    @Column(name ="ADDRESS_ID")
     private Long addressId;
     //주소록
 
@@ -33,7 +34,7 @@ public class AddressBook {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(name ="POSTAL_CODE",nullable = false)
     private String postalCode;
 
     @Column(nullable = false)
@@ -46,7 +47,7 @@ public class AddressBook {
     @Column(nullable = false, columnDefinition = "CHAR(1) DEFAULT '0'")
     private char isDefault = '0';
     //처음0 만약 처음 등록한 주소지일 경우 1로 등록
-    @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
-    private AddressBook addressBook;
+//    @OneToOne
+//    @JoinColumn(name = "address_id", nullable = false)
+//    private AddressBook addressBook;
 }

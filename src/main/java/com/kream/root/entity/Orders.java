@@ -26,10 +26,10 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq_generator")
     private Long orderId;
 
-    @Column(nullable = false)
+    @Column(name="ORDER_CODE",nullable = false)
     private String orderCode;
 
-    @Column(nullable = false)
+    @Column(name="ORDER_DATE",nullable = false)
     private LocalDateTime orderDate;
 
     @ManyToOne
@@ -45,10 +45,10 @@ public class Orders {
     private List<OrderItems> orderItems;
 
     // 추가된 필드
-    @Column(nullable = false)
+    @Column(name="APPLY_NUM",nullable = false)
     private String applyNum;
 
-    @Column
+    @Column(name="BANK_NAME")
     private String bankName;
 
     @Column(nullable = false)

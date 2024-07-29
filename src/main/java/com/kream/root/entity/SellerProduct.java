@@ -30,23 +30,23 @@ public class SellerProduct {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false)
+    @Column(name = "pro_Size",nullable = false)
     private String proSize;
     @Column(nullable = false)
     private String Address;
-    @Column(nullable = false)
+    @Column(name = "account_Holder",nullable = false)
     private String accountHolder;
 
-    @Column(nullable = false)
+    @Column(name = "bank_Name",nullable = false)
     private String bankName;
 
-    @Column(nullable = false)
+    @Column(name = "account_Number",nullable = false)
     private String accountNumber;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "phone_Number",nullable = false)
     private String phoneNumber;
 
     @Column(nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")

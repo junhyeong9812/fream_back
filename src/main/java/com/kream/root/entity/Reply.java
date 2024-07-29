@@ -20,6 +20,7 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "replySeqGen")
     @SequenceGenerator(name = "replySeqGen", sequenceName = "reply_seq", allocationSize = 1)
+    @Column(name="REPLY_ID")
     private Long replyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +30,7 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    @JsonManagedReference("user-reply")
+//    @JsonManagedReference("user-reply")
     @JsonBackReference("user-reply")
     @JsonIgnore  // 이 부분에서 UserListDTO에 대한 직렬화를 무시
     private UserListDTO user;

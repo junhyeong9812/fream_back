@@ -20,9 +20,7 @@ public class QAddressBook extends EntityPathBase<AddressBook> {
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QAddressBook addressBook1 = new QAddressBook("addressBook1");
-
-    public final QAddressBook addressBook;
+    public static final QAddressBook addressBook = new QAddressBook("addressBook");
 
     public final NumberPath<Long> addressId = createNumber("addressId", Long.class);
 
@@ -58,7 +56,6 @@ public class QAddressBook extends EntityPathBase<AddressBook> {
 
     public QAddressBook(Class<? extends AddressBook> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.addressBook = inits.isInitialized("addressBook") ? new QAddressBook(forProperty("addressBook"), inits.get("addressBook")) : null;
         this.user = inits.isInitialized("user") ? new com.kream.root.Login.model.QUserListDTO(forProperty("user"), inits.get("user")) : null;
     }
 

@@ -5,6 +5,7 @@ import com.kream.root.MainAndShop.domain.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -25,7 +26,7 @@ public class UserBigData extends BaseEntity {
     private Long ub_id;
 
 //    @Column
-//    private LocalDateTime ub_date;
+//    private LocalDate ub_date;
 
     @ManyToOne(targetEntity = UserListDTO.class, fetch = FetchType.LAZY)
     @JoinColumn(name="ub_ulid", referencedColumnName = "ulid")
