@@ -35,7 +35,7 @@ public class StyleReply {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
+    @Column(name = "CREATED_DATE",nullable = false)
     private LocalDateTime createdDate;
 }
 

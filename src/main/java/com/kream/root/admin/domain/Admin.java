@@ -1,10 +1,6 @@
 package com.kream.root.admin.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,15 +18,30 @@ public class Admin {
     private String password;
     private String name;
     private int age;
-    private String phoneNumber;
+//    private String phoneNumber;
+@Column(name = "PHONE_NUMBER")
+private String phoneNumber;
     private String email;
+    @Column(name = "ACCESS_LEVEL")
     private String accessLevel;
+//    private String accessLevel;
     private String role;
     private String status;
+    @Column(name = "CREATED_AT")
     private java.sql.Timestamp createdAt;
+
+    @Column(name = "UPDATED_AT")
     private java.sql.Timestamp updatedAt;
+
+    @Column(name = "LAST_LOGIN")
     private java.sql.Timestamp lastLogin;
+
+    @Column(name = "PROFILE_PICTURE")
     private String profilePicture;
+//    private java.sql.Timestamp createdAt;
+//    private java.sql.Timestamp updatedAt;
+//    private java.sql.Timestamp lastLogin;
+//    private String profilePicture;
     private String department;
     private String notes;
 

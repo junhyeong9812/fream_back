@@ -95,14 +95,12 @@ public class UserListDTO implements UserDetails {
 
 
     @Column(name = "RECEIVE_EMAIL", length = 1, columnDefinition = "CHAR(1) DEFAULT '1'")
-
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveEmail;
 
 
     @Column(name = "RECEIVE_MESSAGE", length = 1, columnDefinition = "CHAR(1) DEFAULT '1'")
-
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveMessage;

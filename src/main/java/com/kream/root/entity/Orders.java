@@ -24,6 +24,7 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq_generator")
+    @Column(name = "ORDER_ID")
     private Long orderId;
 
     @Column(name="ORDER_CODE",nullable = false)
@@ -51,69 +52,69 @@ public class Orders {
     @Column(name="BANK_NAME")
     private String bankName;
 
-    @Column(nullable = false)
+    @Column(name = "BUYER_ADDR", nullable = false)
     private String buyerAddr;
 
-    @Column(nullable = false)
+    @Column(name = "BUYER_EMAIL", nullable = false)
     private String buyerEmail;
 
-    @Column(nullable = false)
+    @Column(name = "BUYER_NAME", nullable = false)
     private String buyerName;
 
-    @Column(nullable = false)
+    @Column(name = "BUYER_POSTCODE", nullable = false)
     private String buyerPostcode;
 
-    @Column(nullable = false)
+    @Column(name = "BUYER_TEL", nullable = false)
     private String buyerTel;
 
-    @Column(nullable = false)
+    @Column(name = "CARD_NAME", nullable = false)
     private String cardName;
 
-    @Column(nullable = false)
+    @Column(name = "CARD_NUMBER", nullable = false)
     private String cardNumber;
 
-    @Column(nullable = false)
+    @Column(name = "CARD_QUOTA", nullable = false)
     private int cardQuota;
 
-    @Column(nullable = false)
+    @Column(name = "CURRENCY", nullable = false)
     private String currency;
 
-    @Column
+    @Column(name = "CUSTOM_DATA")
     private String customData;
 
-    @Column(nullable = false)
+    @Column(name = "IMP_UID", nullable = false)
     private String impUid;
 
-    @Column(nullable = false)
+    @Column(name = "MERCHANT_UID", nullable = false)
     private String merchantUid;
 
-    @Column(nullable = false)
+    @Column(name = "PRODUCT_NAME", nullable = false)
     private String productName;
 
-    @Column(nullable = false)
+    @Column(name = "PAID_AMOUNT", nullable = false)
     private double paidAmount;
 
-    @Column(nullable = false)
+    @Column(name = "PAID_AT", nullable = false)
     private long paidAt;
 
-    @Column(nullable = false)
+    @Column(name = "PAY_METHOD", nullable = false)
     private String payMethod;
 
-    @Column(nullable = false)
+    @Column(name = "PG_PROVIDER", nullable = false)
     private String pgProvider;
 
-    @Column(nullable = false)
+    @Column(name = "PG_TID", nullable = false)
     private String pgTid;
 
-    @Column(nullable = false)
+    @Column(name = "PG_TYPE", nullable = false)
     private String pgType;
 
-    @Column(nullable = false)
+    @Column(name = "RECEIPT_URL", nullable = false)
     private String receiptUrl;
 
-    @Column(nullable = false)
+    @Column(name = "STATUS", nullable = false)
     private String status;
 
-    @Column(nullable = false)
+    @Column(name = "SUCCESS", nullable = false)
     private boolean success;
 }

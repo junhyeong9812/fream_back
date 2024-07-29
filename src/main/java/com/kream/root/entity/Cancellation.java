@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 public class Cancellation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cancellations_seq_generator")
+    @Column(name = "CANCELLATION_ID")
     private Long cancellationId;
 
     @OneToOne

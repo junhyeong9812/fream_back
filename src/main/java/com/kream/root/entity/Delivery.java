@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "delivery_seq_generator")
+    @Column(name = "DELIVERY_ID")
     private Long deliveryId;
 
     @Column(name = "delivery_status", nullable = false)
