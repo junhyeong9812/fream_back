@@ -6,6 +6,7 @@ import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.MyPage.dto.addressDTO;
 //import com.kream.root.MyPage.repository.AddressBookRepository;
 import com.kream.root.MyPage.mapping.ImgMapper;
+import com.kream.root.MyPage.mapping.PasswordMapping;
 import com.kream.root.MyPage.service.MyPageService;
 import com.kream.root.entity.AddressBook;
 import com.kream.root.order.repository.AddressBookRepository;
@@ -128,8 +129,7 @@ public class MyPageController {
     public ResponseEntity<Optional<UserListDTO>> loginInfo(
             @CookieValue(value = "loginCookie") Cookie cookie,
             @RequestParam(required = false) String email,
-            @RequestParam(required = false, value = "userPw") String oldPassword,
-            @RequestParam(required = false, value = "newPw") String newPassword,
+            @RequestBody(required = false) PasswordMapping pwd,
             @RequestParam(required = false) String phone,
             @RequestParam(required = false, value = "uSize") String user_size,
             @RequestParam(required = false, value = "receiveEmail ") String receive_email,
@@ -150,8 +150,8 @@ public class MyPageController {
         if (email != null ) {
             userData = ms.changeEmail(userid, email);
         }
-        if (oldPassword != null && newPassword != null ) {
-            userData = ms.changePassword(userid, oldPassword, newPassword);
+        if (pwd.getOldPassword() != null && pwd.getNewPassword() != null ) {
+            userData = ms.changePassword(userid, pwd.getOldPassword(), pwd.getNewPassword());
             // null : 현재 비밀번호가 틀림
             if (userData == null) {
                 // 현재 비밀번호가 틀림

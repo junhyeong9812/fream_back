@@ -25,7 +25,7 @@ public class bigDataImpl extends QuerydslRepositorySupport implements bigData{
     ModelMapper modelMapper;
 
     @Override
-    public Optional<UserBigData> getBigData(LocalDateTime LocalDateTime, UserListDTO userList, Product product) {
+    public Optional<UserBigData> getBigData(LocalDate LocalDate, UserListDTO userList, Product product) {
 
         QUserBigData userBigData = QUserBigData.userBigData;
 
@@ -34,11 +34,7 @@ public class bigDataImpl extends QuerydslRepositorySupport implements bigData{
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(userBigData.userListDTO.eq(userList));
         booleanBuilder.and(userBigData.product.eq(product));
-<<<<<<< HEAD
-        booleanBuilder.and(userBigData.ubDate.eq(LocalDateTime));
-=======
-        booleanBuilder.and(userBigData.ubDate.eq(localDate));
->>>>>>> 742c961135f8a214312833f60e330e5bf8417fe8
+        booleanBuilder.and(userBigData.ubDate.eq(LocalDate));
 
         query.where(booleanBuilder);
 

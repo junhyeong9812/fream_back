@@ -101,3 +101,5 @@ allprojects {
 		maven { url 'https://jitpack.io' }
 	}
 }
+
+compileJava {	options.compilerArgs << '-parameters'}

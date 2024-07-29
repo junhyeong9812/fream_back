@@ -19,7 +19,7 @@ public class KakaoLoginController {
     @Autowired
     private UserListRepository userListRepository;
 
-    @GetMapping
+    @PostMapping
     public String kakaoLogin(@RequestParam("code") String code, HttpSession session) throws Exception {
         try {
             //1.인가 코드 받기 (@RequestParam String code)

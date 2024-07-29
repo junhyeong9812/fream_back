@@ -141,21 +141,21 @@ public void dataAdd() throws IOException {
     @Test
     @Transactional
     public void orderSelect (){
-        log.info("order info : {}", ordersRepository.findById(1L));
+//        log.info("order info : {}", ordersRepository.findById(1L));
     }
     @Transactional
     @Test
     public void orderDateSelect (){
-        String date = "2024-07-01";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
-        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
-
-        List<Orders> orderList = ordersRepository.findByOrderDateBetween(startDate, endDate);
-        orderList.forEach(data -> {
-            log.info("order info : {}", data);
-        });
+//        String date = "2024-07-01";
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
+//        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
+//
+//        List<Orders> orderList = ordersRepository.findByOrderDateBetween(startDate, endDate);
+//        orderList.forEach(data -> {
+//            log.info("order info : {}", data);
+//        });
     }
 
     @Autowired
@@ -164,9 +164,9 @@ public void dataAdd() throws IOException {
     @Transactional
     @Test
     public void clickDateSelect (){
-        String date = "2024-07-01 00:00:00";
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
+//        String date = "2024-07-01 00:00:00";
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
 //        List<UserBigData> clickDate= userBigDataRepository.findByUbDate(dateTime);
 //        clickDate.forEach(data -> {
 //            log.info("click info : {}", data);
@@ -180,78 +180,14 @@ public void dataAdd() throws IOException {
     @Test
     public void styleDateSelect (){
         String date = "2024-07-01";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
-        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
-        List<Style> styleDate= styleRepository.findByStyleDateBetween(startDate, endDate);
-        styleDate.forEach(data -> {
-            log.info("style info : {}", data);
-        });
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
+//        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
+//        List<Style> styleDate= styleRepository.findByStyleDateBetween(startDate, endDate);
+//        styleDate.forEach(data -> {
+//            log.info("style info : {}", data);
+//        });
     }
 
-<<<<<<< HEAD
-//    @Test
-//    @Transactional
-//    public void testCreateDummyOrders() {
-//        for (int i = 0; i < 1000; i++) {
-//            PaymentInfo paymentInfo = generateDummyPaymentInfo();
-//            UserListDTO user = getRandomUser();
-//            orderService.createOrder(paymentInfo, user);
-//        }
-//    }
-//    private PaymentInfo generateDummyPaymentInfo() {
-//        List<Long> productIds = new ArrayList<>();
-//        List<Integer> quantities = new ArrayList<>();
-//        for (int i = 0; i < random.nextInt(5) + 1; i++) {
-//            productIds.add((long) (random.nextInt(299) + 1));
-//            quantities.add( 1);
-//        }
-//
-//        return PaymentInfo.builder()
-//                .productIds(productIds)
-//                .quantities(quantities)
-//                .applyNum(randomString(10))
-//                .bankName("Bank " + randomString(5))
-//                .buyerAddr("Address " + randomString(10))
-//                .buyerEmail(randomString(10) + "@example.com")
-//                .buyerName("Buyer " + randomString(5))
-//                .buyerPostcode("12345")
-//                .buyerTel("010-" + random.nextInt(9000) + 1000 + "-" + random.nextInt(9000) + 1000)
-//                .cardName("Card " + randomString(5))
-//                .cardNumber(randomString(16))
-//                .cardQuota(random.nextInt(12) + 1)
-//                .currency("KRW")
-//                .customData(null)
-//                .impUid(randomString(10))
-//                .merchantUid(randomString(10))
-//                .productName("Product " + randomString(10))
-//                .paidAmount(random.nextDouble() * 1000)
-//                .paidAt(System.currentTimeMillis() / 1000)
-//                .payMethod("Credit Card")
-//                .pgProvider("PG Provider " + randomString(5))
-//                .pgTid(randomString(10))
-//                .pgType("PG Type " + randomString(5))
-//                .receiptUrl("http://example.com/receipt/" + randomString(10))
-//                .status("Paid")
-//                .success(true)
-//                .build();
-//    }
-//    private UserListDTO getRandomUser() {
-//        Integer userId = random.nextInt(500) + 1;
-//        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-//    }
-//    private String randomString(int length) {
-//        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//        StringBuilder result = new StringBuilder();
-//        while (length-- > 0) {
-//            result.append(characters.charAt(random.nextInt(characters.length())));
-//        }
-//        return result.toString();
-//    }
-
-
-
-=======
->>>>>>> 742c961135f8a214312833f60e330e5bf8417fe8
 }

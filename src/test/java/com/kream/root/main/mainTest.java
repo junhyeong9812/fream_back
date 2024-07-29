@@ -127,14 +127,14 @@ public class mainTest {
 
     @Test
     public void createRecommendTable(){
-        LocalDate startDate = LocalDate.of(2024, 6, 20);
-        LocalDate endDate = LocalDate.of(2024, 7, 19);
-        List<LocalDate> dateRange = startDate.datesUntil(endDate.plusDays(1))
-                .toList();
-
-        dateRange.forEach(date -> {
-            ms.createRecommendTable(date);
-        });
+//        LocalDate startDate = LocalDate.of(2024, 6, 20);
+//        LocalDate endDate = LocalDate.of(2024, 7, 19);
+//        List<LocalDate> dateRange = startDate.datesUntil(endDate.plusDays(1))
+//                .toList();
+//
+//        dateRange.forEach(date -> {
+//            ms.createRecommendTable(date);
+//        });
     }
 
     @Autowired

@@ -93,12 +93,12 @@ public class UserListDTO implements UserDetails {
     @Column(name = "USER_BIO", length = 500)
     private String userBio;
 
-    @Column(name = "RECEIVE_EMAIL", length = 1, columnDefinition = "default '1'")
+    @Column(name = "RECEIVE_EMAIL", length = 1, columnDefinition = "char(1) default '0'")
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveEmail;
 
-    @Column(name = "RECEIVE_MESSAGE", length = 1, columnDefinition = "default '1'")
+    @Column(name = "RECEIVE_MESSAGE", length = 1, columnDefinition = "char(1) default '0'")
     @NotNull
     @Size(min = 1, max = 1)
     private String receiveMessage;
@@ -110,7 +110,7 @@ public class UserListDTO implements UserDetails {
     private String favoriteProducts;
 
     //카카오로그인 추가
-    @Column(name = "KAKAO_USER", length = 1, columnDefinition = "default '0'")
+    @Column(name = "KAKAO_USER", length = 1, columnDefinition = "char(1) default '0'")
     @NotNull
     @Size(min = 1, max = 1)
     private String kakaoUser;

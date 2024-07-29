@@ -9,9 +9,5 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface bigData {
-<<<<<<< HEAD
-    public Optional<UserBigData> getBigData (LocalDateTime localDateTime, UserListDTO userList, Product product);
-=======
     public Optional<UserBigData> getBigData (LocalDate localDate, UserListDTO userList, Product product);
->>>>>>> 742c961135f8a214312833f60e330e5bf8417fe8
 }

@@ -53,6 +53,7 @@ public class KakaoServiceImpl implements KakaoService{
             //URL객체 생성
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            log.info(conn);
 
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -64,7 +65,7 @@ public class KakaoServiceImpl implements KakaoService{
 
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=2c38a672bc98d7bf79b19bbcaeb91eb6");
-            sb.append("&redirect_uri=http://localhost:3000/kakaoLogin");
+            sb.append("&redirect_uri=http://192.168.0.101:3000/kakaoLogin");
             sb.append("&code=" + authorization_code);
 
             bw.write(sb.toString());
