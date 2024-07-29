@@ -43,6 +43,9 @@ public class StyleService {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
     }
+    public Optional<Style> getStyleById(Long id) {
+        return styleRepository.findById(id);
+    }
 
     @Transactional
     public Style createStyle(String userId, Long productId, String content, MultipartFile image) {

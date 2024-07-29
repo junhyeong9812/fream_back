@@ -146,7 +146,7 @@ public class UserListDTO implements UserDetails {
     private List<Wish> wishes;
     //
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("user-style")
+    @JsonBackReference("user-style")
     private Set<Style> styles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

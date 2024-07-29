@@ -1,9 +1,7 @@
 package com.kream.root.MainAndShop.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfo;
 import com.kream.root.MainAndShop.domain.ProductInfo.ProductInfoConverter;
 //import com.kream.root.entity.Style;
@@ -33,6 +31,7 @@ import java.util.Set;
     allocationSize = 1
 )
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "prid")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq_generator")
@@ -71,7 +70,7 @@ public class Product extends BaseEntity {
     private List<Wish> wishes = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("product-style")
+    @JsonBackReference("product-style")
     private Set<Style> styles;
 
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
