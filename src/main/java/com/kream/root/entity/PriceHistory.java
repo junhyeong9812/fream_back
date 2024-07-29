@@ -24,6 +24,7 @@ public class PriceHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "price_history_seq_generator")
+    @Column(name = "HISTORY_ID",nullable = false)
     private Long historyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,10 +36,10 @@ public class PriceHistory {
     private LocalDate historyDate;
 
     // 변동 격차
-    @Column(nullable = false)
+    @Column(name = "price_Change",nullable = false)
     private double priceChange;
 
     // 변동 후의 가격
-    @Column(nullable = false)
+    @Column(name = "NEW_PRICE",nullable = false)
     private double newPrice;
 }
