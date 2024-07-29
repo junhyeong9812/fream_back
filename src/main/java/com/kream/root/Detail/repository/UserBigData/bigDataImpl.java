@@ -32,7 +32,7 @@ public class bigDataImpl extends QuerydslRepositorySupport implements bigData{
         JPQLQuery<UserBigData> query = from(userBigData);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        booleanBuilder.and(userBigData.userListDTO.eq(userList));
+        booleanBuilder.and(userBigData.userListDTO.eq(userList))   ;
         booleanBuilder.and(userBigData.product.eq(product));
         booleanBuilder.and(userBigData.ubDate.eq(localDate));
 
