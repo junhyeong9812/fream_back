@@ -133,9 +133,14 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.addAllowedOrigin("http://*");
-        configuration.addAllowedOrigin("http://192.168.0.13:3000/");
+        configuration.addAllowedOrigin("http://43.200.110.19:80/");
+        configuration.addAllowedOrigin("http://43.200.110.19:8080/");
+//        configuration.addAllowedOrigin("http://52.78.125.42:80/");
+        configuration.addAllowedOrigin("http://192.168.0.13:3000");
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://localhost:3002");
+        configuration.addAllowedOrigin("http://www.pinjun.xyz:3000"); // 새로운 도메인 추가
+        configuration.addAllowedOrigin("http://58.125.92.250:3000"); // 새로운 도메인 추가
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
 //        configuration.addAllowedOrigin("*");
