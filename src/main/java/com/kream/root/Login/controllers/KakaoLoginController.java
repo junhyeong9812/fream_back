@@ -74,7 +74,7 @@ public class KakaoLoginController {
             return modelAndView;
 
         } catch (Exception e) {
-            String redirectUrl = "/login";
+            String redirectUrl = "http://pinjun.xyz:3000/join";
             modelAndView.setViewName("redirect:" + redirectUrl);
             return modelAndView;
 
