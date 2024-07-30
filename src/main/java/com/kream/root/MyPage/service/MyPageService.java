@@ -29,6 +29,7 @@ public interface MyPageService { // 각각 기능이 저장될 때마다 다시 
     //주소록
     public List<AddressBook> getAddressBookList(int ulid);
     public List<AddressBook> setAddressBook(addressDTO addr);
-    public void deleteAddressBook(addressDTO addr);
+    public void deleteAddressBook(int ulid, Long address_id);
     public List<AddressBook> modifyAddressBook(addressDTO addr);
+    public List<AddressBook> modifyIsDefault(int ulid,Long address_id);
 }

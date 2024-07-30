@@ -145,7 +145,6 @@ public class AuthRestController {
 		int result=0;
 		try {
 
-
 			if (jwtTokenProvider.validateToken(token)) {// 아직 유효한 토큰이라면 ~~
 				// Blacklist the token
 				Date tokenExpDate=jwtTokenProvider.getExpirationDate(token);

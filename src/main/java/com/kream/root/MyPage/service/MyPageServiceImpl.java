@@ -1,8 +1,5 @@
 package com.kream.root.MyPage.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.Login.repository.UserListRepository;
 
@@ -17,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -169,8 +166,15 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public Optional<UserListDTO> changePassword(String userid, String oldPassword, String newPassword) {
         Optional<UserListDTO> userList = userListRepository.findByUserId(userid);
-        String pw = userList.get().getPassword();
+        String pw = userList.orElseGet(() -> {
+            throw new IllegalArgumentException("password 변경 에러 발생");
+        }).getPassword();
+        log.info("oldPassword : "+ oldPassword);
+        log.info("pwd : " + pw);
+        log.info("Match : " + (passwordEncoder.matches(oldPassword, pw)));
+
         if (passwordEncoder.matches(oldPassword, pw)) { //raw, encoded
+            log.info("여기~");
             userList.get().setUserPw(passwordEncoder.encode(newPassword));
             userListRepository.save(userList.get());
             return userList;
@@ -258,11 +262,9 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
-    public void deleteAddressBook(addressDTO addr) {
+    public void deleteAddressBook(int ulid, Long address_id) {
 
-        Long addrId = addr.getAddress_id();
-
-        addressBookRepository.delete(addressBookRepository.findById(addrId).orElseGet(()-> {
+        addressBookRepository.delete(addressBookRepository.findById(address_id).orElseGet(()-> {
             throw new IllegalArgumentException("없는 주소록 입니다");
         }));
 
@@ -273,11 +275,35 @@ public class MyPageServiceImpl implements MyPageService{
 
         int ulid = userListRepository.findByUserId(addr.getUserId()).get().getUlid();
         Long addrId = addr.getAddress_id();
+        log.info("addrId : " + addrId);
 
         UserListDTO.Builder builder = new UserListDTO.Builder();
         UserListDTO dto = builder.ulid(ulid).build();
 
+        if (addr.getIsDefault() == '1') {
+            Optional<AddressBook> allAddressData = addressBookRepository.findByUserUlid(ulid)
+                    .stream().filter(isDefault ->
+                            isDefault.getIsDefault() == '1'
+                    ).findFirst();
+            if (!allAddressData.isEmpty()) {
+                log.info(allAddressData);
+                AddressBook otherAddrBook = AddressBook.builder()
+                        .addressId(allAddressData.get().getAddressId())
+                        .user(allAddressData.get().getUser())
+                        .city(allAddressData.get().getCity())
+                        .postalCode(allAddressData.get().getPostalCode())
+                        .phone(allAddressData.get().getPhone())
+                        .name(allAddressData.get().getName())
+                        .street(allAddressData.get().getStreet())
+                        .isDefault('0')
+                        .build();
+
+                addressBookRepository.save(otherAddrBook);
+            }
+        }
+
         AddressBook addrBook = AddressBook.builder()
+                .addressId(addrId)
                 .user(dto)
                 .city(addr.getCity())
                 .postalCode(addr.getPostalCode())
@@ -285,6 +311,69 @@ public class MyPageServiceImpl implements MyPageService{
                 .name(addr.getName())
                 .street(addr.getStreet())
                 .isDefault(addr.getIsDefault())
+                .build();
+        log.info("addrBook : {}", addrBook);
+        addressBookRepository.save(addrBook);
+
+        return addressBookRepository.findByUserUlid(ulid);
+    }
+
+    @Override
+    public List<AddressBook> modifyIsDefault(int ulid, Long address_id) {
+        UserListDTO.Builder builder = new UserListDTO.Builder();
+        UserListDTO dto = builder.ulid(ulid).build();
+
+        Optional<AddressBook> allAddressData = addressBookRepository.findByUserUlid(ulid)
+                .stream().filter(isDefault ->
+                        isDefault.getIsDefault() == '1'
+                ).findFirst();
+        if (!allAddressData.isEmpty()){
+            log.info(allAddressData);
+            AddressBook otherAddrBook = AddressBook.builder()
+                    .addressId(allAddressData.get().getAddressId())
+                    .user(allAddressData.get().getUser())
+                    .city(allAddressData.get().getCity())
+                    .postalCode(allAddressData.get().getPostalCode())
+                    .phone(allAddressData.get().getPhone())
+                    .name(allAddressData.get().getName())
+                    .street(allAddressData.get().getStreet())
+                    .isDefault('0')
+                    .build();
+
+            addressBookRepository.save(otherAddrBook);
+        }
+//            List<AddressBook> allAddressData = addressBookRepository.findByUserUlid(ulid)
+//                    .stream().filter(isDefault ->
+//                            isDefault.getIsDefault() == '1'
+//                    ).toList();
+//            log.info(" allAddressData : {}", allAddressData);
+//            allAddressData.forEach(data -> {
+//                AddressBook otherAddrBook = AddressBook.builder()
+//                        .addressId(data.getAddressId())
+//                        .user(data.getUser())
+//                        .city(data.getCity())
+//                        .postalCode(data.getPostalCode())
+//                        .phone(data.getPhone())
+//                        .name(data.getName())
+//                        .street(data.getStreet())
+//                        .isDefault('0')
+//                        .build();
+//
+//                addressBookRepository.save(otherAddrBook);
+//            });
+
+        AddressBook addr = addressBookRepository.findById(address_id).get();
+
+
+        AddressBook addrBook = AddressBook.builder()
+                .addressId(address_id)
+                .user(dto)
+                .city(addr.getCity())
+                .postalCode(addr.getPostalCode())
+                .phone(addr.getPhone())
+                .name(addr.getName())
+                .street(addr.getStreet())
+                .isDefault('1')
                 .build();
 
         addressBookRepository.save(addrBook);

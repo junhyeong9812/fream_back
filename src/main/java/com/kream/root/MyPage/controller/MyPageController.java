@@ -63,7 +63,7 @@ public class MyPageController {
 //                                         @RequestParam(required = false) List<String> BlockProfile
                                          ){
         String userid =  cookie.getValue();
-        log.info(introduce);
+
 
         Optional<UserListDTO> userData = null;
 
@@ -78,6 +78,7 @@ public class MyPageController {
             log.info(userData.get());
         }
         if (introduce != null ) {
+            log.info("introduce : " + introduce);
             userData = ms.changeIntroduce(userid, introduce);
         }
 //        if (BlockProfile != null ) { //이부분은 프론트와 상의 필요
@@ -129,11 +130,10 @@ public class MyPageController {
     public ResponseEntity<Optional<UserListDTO>> loginInfo(
             @CookieValue(value = "loginCookie") Cookie cookie,
             @RequestParam(required = false) String email,
-            @RequestBody(required = false) PasswordMapping pwd,
             @RequestParam(required = false) String phone,
             @RequestParam(required = false, value = "uSize") String user_size,
-            @RequestParam(required = false, value = "receiveEmail ") String receive_email,
-            @RequestParam(required = false, value = "receiveMessage ") String receive_message
+            @RequestParam(required = false, value = "receiveEmail") String receive_email,
+            @RequestParam(required = false, value = "receiveMessage") String receive_message
     ){
         //이메일주소
         //비밀번호
@@ -150,35 +150,57 @@ public class MyPageController {
         if (email != null ) {
             userData = ms.changeEmail(userid, email);
         }
-        if (pwd.getOldPassword() != null && pwd.getNewPassword() != null ) {
-            userData = ms.changePassword(userid, pwd.getOldPassword(), pwd.getNewPassword());
-            // null : 현재 비밀번호가 틀림
-            if (userData == null) {
-                // 현재 비밀번호가 틀림
-                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-            } else {
-                return new ResponseEntity<>(userData, HttpStatus.OK);
-            }
-        }
         if (phone != null ) {
             userData = ms.changePhone(userid, phone);
             log.info(userData.get());
         }
         if (user_size != null ) {
+            log.info("user_size : " + user_size);
             userData = ms.changeUser_size(userid, user_size);
         }
         if (receive_email != null ) {
+            log.info("receive_email : " + receive_email);
             userData = ms.receiveEmail(userid, receive_email);
         }
         if (receive_message != null ) {
+            log.info("receive_message : " + receive_message);
             userData = ms.receiveMessage(userid, receive_message);
         }
 
         if (userData == null){
-            return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<Optional<UserListDTO>>(userData, HttpStatus.OK);
+    }
+
+    @PutMapping("/profile/pwd") //로그인정보
+    public ResponseEntity<Optional<UserListDTO>> pwdChange(
+            @CookieValue(value = "loginCookie") Cookie cookie,
+            @RequestBody PasswordMapping pwd
+    ){
+
+        String userid =  cookie.getValue();
+        log.info("old : " + pwd.getOldPassword());
+        log.info("new : " + pwd.getNewPassword());
+
+        Optional<UserListDTO> userData = null;
+
+        if (pwd.getOldPassword() != null && pwd.getNewPassword() != null ) {
+            userData = ms.changePassword(userid, pwd.getOldPassword(), pwd.getNewPassword());
+
+            // null : 현재 비밀번호가 틀림
+            if (userData == null) {
+                // 현재 비밀번호가 틀림
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            } else {
+                log.info("userData : {}", userData);
+                return new ResponseEntity<>(userData, HttpStatus.OK);
+            }
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/profile")
@@ -213,30 +235,32 @@ public class MyPageController {
 
         dto.setUserId(userid);
 
+        log.info("address dto : {}", dto);
+
         List<AddressBook> result =  ms.setAddressBook(dto);
 
-        if (dto.getAddress_id() == null || dto.getCity() == null || dto.getName() == null ||
-        dto.getPostalCode() == null || dto.getPhone() == null || dto.getStreet() == null){
-            return new ResponseEntity<List<AddressBook>>(result, HttpStatus.NOT_FOUND);
+        if (result == null){
+            return new ResponseEntity<List<AddressBook>>(result, HttpStatus.BAD_REQUEST);
         }
-
+        log.info("result : {}", result);
         return new ResponseEntity<List<AddressBook>>(result, HttpStatus.OK);
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Address Get", description = "주소록")
     @ApiResponse(responseCode = "200")
-    @DeleteMapping("/address")
+    @DeleteMapping("/address/{id}")
     public ResponseEntity deleteAddressMyPage(@CookieValue(value = "loginCookie") Cookie cookie,
-                                                 @RequestBody addressDTO dto){
+                                              @PathVariable(name = "id") String addrId){
         String userid =  cookie.getValue();
 
         int ulid = (userListRepository.findByUserId(userid)).orElseGet(()-> {
             throw new IllegalArgumentException("없는 정보 입니다.");
         }).getUlid();
 
-        dto.setUserId(userid);
+        Long address_id = Long.parseLong(addrId);
+//        dto.setUserId(userid);
         try {
-             ms.deleteAddressBook(dto);
+             ms.deleteAddressBook(ulid, address_id);
 
         } catch (IllegalArgumentException e ){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -255,9 +279,26 @@ public class MyPageController {
         String userid =  cookie.getValue();
         dto.setUserId(userid);
         List<AddressBook> result = ms.modifyAddressBook(dto);
-        if (dto.getAddress_id() == null || dto.getCity() == null || dto.getName() == null ||
-                dto.getPostalCode() == null || dto.getPhone() == null || dto.getStreet() == null){
-            return new ResponseEntity<List<AddressBook>>(result, HttpStatus.NOT_FOUND);
+        if (result == null){
+            return new ResponseEntity<List<AddressBook>>(result, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<List<AddressBook>>(result, HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Operation(summary = "Address put isDefault", description = "주소록")
+    @ApiResponse(responseCode = "200")
+    @PutMapping("/address/is_default/{id}")
+    public ResponseEntity<List<AddressBook>> putAddressMyPage(@CookieValue(value = "loginCookie") Cookie cookie,
+                                              @PathVariable(name="id") String address_id){
+
+        String userid =  cookie.getValue();
+        int ulid = userListRepository.findByUserId(userid).get().getUlid();
+        Long addrId = Long.parseLong(address_id);
+
+        List<AddressBook> result = ms.modifyIsDefault(ulid, addrId);
+        if (result == null){
+            return new ResponseEntity<List<AddressBook>>(result, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<List<AddressBook>>(result, HttpStatus.OK);

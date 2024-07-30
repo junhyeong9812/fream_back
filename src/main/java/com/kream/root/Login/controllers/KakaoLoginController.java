@@ -59,25 +59,17 @@ public class KakaoLoginController {
             System.out.println("accessToken = " + accessToken);
 
             String jwtToken = null;
+            String userId = null;
             if (!accessToken.isEmpty()){
                 UserListDTO dto = kakaoService.setKakaoUserInfo(getUserInfo);
                 jwtToken = KakaoLoginJWT(dto, response);
-                Cookie loginCookie= new Cookie("loginCookie", dto.getUserId());
-                loginCookie.setPath("/");
-                loginCookie.setMaxAge(60 * 60 * 24 * 7);
-                loginCookie.setAttribute("SameSite", "Lax");
 
-                log.info("로그인 쿠키" + loginCookie.getValue());
-
-                response.addCookie(loginCookie);
-
-                String cookieHeader = String.format("loginCookie=%s; Path=/; Max-Age=%d; SameSite=Lax",
-                        dto.getUserId(), 60 * 60 * 24 * 7);
-                response.addHeader("Set-Cookie", cookieHeader);
+                userId = dto.getUserId();;
             }
-
-            // 리다이렉트 설정
-            String redirectUrl = "http://localhost:3000/yourTargetPage?jwtToken=" + jwtToken;
+            log.info("userId : " + userId);
+            // 리다이렉트 설정 -> 토큰 값과 userId를 전달, 프론트에서 cookie값 생성
+            String redirectUrl = "http://localhost:3000/yourTargetPage?jwtToken=" + jwtToken
+                    + "&loginCookie=" + userId;
             modelAndView.setViewName("redirect:" + redirectUrl);
             return modelAndView;
 

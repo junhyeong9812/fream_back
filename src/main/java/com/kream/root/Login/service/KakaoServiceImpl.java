@@ -35,7 +35,9 @@ public class KakaoServiceImpl implements KakaoService{
 
     @Override
     public UserListDTO setKakaoUserInfo(KakaoUserDTO kakaoUser) {
-        if (userListRepository.findByUserId(kakaoUser.getKakaoNickname()).isEmpty()) {
+
+
+        if (userListRepository.findByUserId(kakaoUser.getKakaoEmail().split("@")[0]).isEmpty()) {
             UserListDTO kakaoUserInfo = new UserListDTO.Builder()
                     .userId(kakaoUser.getKakaoEmail().split("@")[0])
                     .userPw(passwordEncoder.encode("password1111"))
@@ -50,7 +52,7 @@ public class KakaoServiceImpl implements KakaoService{
             userListRepository.save(kakaoUserInfo);
             return kakaoUserInfo;
         }
-        UserListDTO user = userListRepository.findByUserId(kakaoUser.getKakaoNickname()).get();
+        UserListDTO user = userListRepository.findByUserId(kakaoUser.getKakaoEmail().split("@")[0]).get();
 //        TempUserDTO dto =  new TempUserDTO(user.getUserId(), user.getUserPw());
 //        authRestController.loginCheck(dto, response);
         return user;
