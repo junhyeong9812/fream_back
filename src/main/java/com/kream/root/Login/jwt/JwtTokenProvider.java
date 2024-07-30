@@ -139,7 +139,7 @@ public class JwtTokenProvider {
 	            return !claims.getBody().getExpiration().before(new Date()); //return false or true here
 	        } catch (Exception e) { //체크과정에서 문제 생긴다면
 	        	
-	            LOGGER.info("[validateToken] 토큰 유효 체크 예외 발생");
+	            LOGGER.info("[validateToken] 토큰 유효 체크 예외 발생:",e);
 	            
 	            return false;
 	        }

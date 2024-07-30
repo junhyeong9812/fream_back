@@ -1,12 +1,9 @@
 package com.kream.root.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.MainAndShop.domain.Product;
 import java.time.LocalDateTime;
@@ -21,6 +18,7 @@ import java.util.Set;
 @Table(name = "STYLES")
 @SequenceGenerator(name = "style_seq_gen", sequenceName = "STYLE_SEQ", allocationSize = 1)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Style {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "style_seq_gen")
@@ -37,13 +35,14 @@ public class Style {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "USERID",
             foreignKey = @ForeignKey(name = "FK_STYLE_USER"))
-    @JsonBackReference("user-style")
+    @JsonManagedReference("user-style")
     private UserListDTO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "PRID",
             foreignKey = @ForeignKey(name = "FK_STYLE_PRODUCT"))
-    @JsonBackReference("product-style")
+    @JsonManagedReference("product-style")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
     @Column(name = "Style_Img_Name")
     private String StyleImgName;

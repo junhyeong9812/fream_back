@@ -1,11 +1,13 @@
 package com.kream.root.order.controller;
 
+import com.kream.root.Login.jwt.JwtTokenProvider;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.entity.AddressBook;
 import com.kream.root.entity.Orders;
 import com.kream.root.order.DTO.OrderDTO;
 import com.kream.root.order.PaymentInfo;
 import com.kream.root.order.service.OrderService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ import java.util.Map;
 public class OrdersController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @PostMapping("/create")
     public String createOrder(@RequestBody PaymentInfo paymentInfo) {
         System.out.println("paymentInfo = " + paymentInfo);
@@ -57,12 +62,38 @@ public class OrdersController {
 //    public List<Orders> getAllOrders() {
 //        return orderService.getAllOrders();
 //    }
+//@GetMapping("/buy")
+//public ResponseEntity<List<OrderDTO>> getOrders(HttpServletRequest request) {
+//    // Authentication 객체에서 UserDetails를 추출하여 사용자 ID를 얻습니다.
+//    String userId = ((UserDetails) authentication.getPrincipal()).getUsername();
+//    List<OrderDTO> ordersList = orderService.getOrdersByUserId(userId);
+//    return ResponseEntity.ok(ordersList);
+//}
+//    private String resolveToken(HttpServletRequest request) {
+//        String bearerToken = request.getHeader("Authorization");
+//        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+//            return bearerToken.substring(7);
+//        }
+//        return null;
+//    }
 @GetMapping("/buy")
-public ResponseEntity<List<OrderDTO>> getOrders(Authentication authentication) {
-    // Authentication 객체에서 UserDetails를 추출하여 사용자 ID를 얻습니다.
-    String userId = ((UserDetails) authentication.getPrincipal()).getUsername();
-    List<OrderDTO> ordersList = orderService.getOrdersByUserId(userId);
-    return ResponseEntity.ok(ordersList);
+public ResponseEntity<List<OrderDTO>> getOrders(HttpServletRequest request) {
+    String token = resolveToken(request);
+    if (token != null && jwtTokenProvider.validateToken(token)) {
+        String userId = jwtTokenProvider.getUsername(token);
+        List<OrderDTO> ordersList = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(ordersList);
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 }
+
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
 
 }
