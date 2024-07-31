@@ -148,7 +148,7 @@ public class DetailController {
             Cookie cookie = new Cookie(cookieName, cookieValue);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24 * 7); //쿠키 유효기간 7일
-            cookie.setSecure(true); //이 속성과
+//            cookie.setSecure(true); //이 속성과
             //cookie.setAttribute("SameSite", "None"); //이 속성 추가
             response.addCookie(cookie);
             //log.info("Updated recent products cookie: {}", cookie.getValue());

@@ -82,8 +82,8 @@ public class KakaoServiceImpl implements KakaoService{
 
 
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=2c38a672bc98d7bf79b19bbcaeb91eb6");
-            sb.append("&redirect_uri=http://192.168.0.101:3001/kakaoLogin");
+            sb.append("&client_id=fb71c1d08ebf4280c2a4c9fb49ddc744");
+            sb.append("&redirect_uri=http://pinjun.xyz:3001/kakaoLogin");
             sb.append("&code=" + authorization_code);
 
             bw.write(sb.toString());

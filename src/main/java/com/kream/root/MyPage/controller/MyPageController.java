@@ -108,7 +108,7 @@ public class MyPageController {
                                                                    @RequestParam("file") MultipartFile file) {
         String userid =  cookie.getValue();
         Optional<UserListDTO> userData = null;
-
+        System.out.println("파일데이터file = " + file);
         log.info("formData : " + file);
 //        log.info("img : " + img);
 //
