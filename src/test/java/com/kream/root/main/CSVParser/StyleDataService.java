@@ -69,16 +69,23 @@ public class StyleDataService {
                     log.info("Order User Info : {}", orderUserList);
 
                         for(UserListDTO orderUser : orderUserList){
-                            Style styleBuilder = Style.builder()
-                                    .styleDate(start.plusDays(2)) // 2일 뒤에 style 작성
-                                    .user(orderUser)
-                                    .content("style is good!")
-                                    .product(product).build();
+//                            Style styleBuilder = Style.builder()
+//                                    .styleDate(start.plusDays(2)) // 2일 뒤에 style 작성
+//                                    .user(orderUser)
+//                                    .content("style is good!")
+//                                    .product(product).build();
+                            Style styleBuilder = new Style();
+                            styleBuilder.setStyleDate(start.plusDays(2));
+                            styleBuilder.setUser(orderUser);
+                            styleBuilder.setContent("style is good");
+                            styleBuilder.setProduct(product);
 
                             log.info("styleBuilder : {}", styleBuilder);
 
-                            styleSaveList.add(styleBuilder);
+//                            styleSaveList.add(styleBuilder);
+                        styleRepository.save(styleBuilder);
                         }
+
                     cnt[0] = cnt[0] + 1;
                     log.info("style data 수 : " + cnt[0]);
 
@@ -87,7 +94,7 @@ public class StyleDataService {
                     e.printStackTrace();
                 }
             });
-            styleRepository.saveAll(styleSaveList);
+//            styleRepository.saveAll(styleSaveList);
         } catch (Exception e) {
             log.error("Error reading order data file: {}", e.getMessage());
             e.printStackTrace();
