@@ -163,6 +163,9 @@ public class KakaoServiceImpl implements KakaoService{
             JsonObject kakao_account = jsonObject.getAsJsonObject("kakao_account");
             Long id = jsonObject.get("id").getAsLong();
 
+            log.info("properties : " + properties);
+            log.info("kakao_account : " + kakao_account);
+
             //데이터 추출
             String kakaoNickname = properties.get("nickname").getAsString();
             String kakaoEmail = kakao_account.get("email").getAsString();

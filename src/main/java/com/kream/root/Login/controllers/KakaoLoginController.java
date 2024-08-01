@@ -106,7 +106,6 @@ public class KakaoLoginController {
                 return jwtToken;
             } else {
                 log.info("JWT token validation failed for user id: {}", dto.getUserId());
-                ;
                 return null;
             }
         } else {

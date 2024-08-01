@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -161,17 +162,28 @@ public class mainServiceImpl implements mainService {
                 });
             });
         }
+        Set<Map<String, Object>> clickInfoSet = new HashSet<>();
         if (!clickList.isEmpty()) {
             clickList.forEach(click -> {
-                List<UserBigData> toClickRemove = clickList.stream()
-                        .filter(clickData ->
-                                clickData.getUserListDTO().getUlid() == click.getUserListDTO().getUlid() &&
-                                        Objects.equals(clickData.getProduct().getPrid(), click.getProduct().getPrid()))
-                        .toList();
+                int ulid = click.getUserListDTO().getUlid();
+                Long prid = click.getProduct().getPrid();
 
-                int clickCount = toClickRemove.stream()
-                        .mapToInt(UserBigData::getUb_clickCount)
-                        .sum();
+                Map<String, Object> info = new HashMap<>();
+                info.put("ulid", ulid);
+                info.put("prid", prid);
+
+
+                if (!clickInfoSet.contains(info)) {
+                    clickInfoSet.add(info);
+                    List<UserBigData> toClickRemove = clickList.stream()
+                            .filter(clickData ->
+                                    clickData.getUserListDTO().getUlid() == click.getUserListDTO().getUlid() &&
+                                            Objects.equals(clickData.getProduct().getPrid(), click.getProduct().getPrid()))
+                            .toList();
+
+                    int clickCount = toClickRemove.stream()
+                            .mapToInt(UserBigData::getUb_clickCount)
+                            .sum();
 
                 List<Style> toStyleRemove = styleList.stream()
                         .filter(style ->
@@ -194,32 +206,50 @@ public class mainServiceImpl implements mainService {
                 log.info("click builder : {}", recommendBuilder);
 
                 recommendRepository.save(recommendBuilder);
+                } else {
+                    return;
+                }
 //                builderList.add(recommendBuilder);
             });
         }
+        Set<Map<String, Object>> styleInfoSet = new HashSet<>();
         if (!styleList.isEmpty()) {
             styleList.forEach(style -> {
-                log.info("styleData");
-                List<Style> toStyleRemove = styleList.stream()
-                        .filter(styleData ->
-                                styleData.getUser().getUlid() == styleData.getUser().getUlid() &&
-                                        Objects.equals(styleData.getProduct().getPrid(), styleData.getProduct().getPrid()))
-                        .toList();
 
-                int styleCount = toStyleRemove.size();
+                int ulid = style.getUser().getUlid();
+                Long prid = style.getProduct().getPrid();
 
-                Recommend recommendBuilder = Recommend.builder()
-                        .recommend_date(date)
-                        .user(style.getUser())
-                        .product(style.getProduct())
-                        .quantity(0)
-                        .click(0)
-                        .style(styleCount)
-                        .build();
+                Map<String, Object> info = new HashMap<>();
+                info.put("ulid", ulid);
+                info.put("prid", prid);
 
-                log.info("style builder : {}", recommendBuilder);
+                if (!styleInfoSet.contains(info)) {
+                    styleInfoSet.add(info);
+                    log.info("styleData");
+                    List<Style> toStyleRemove = styleList.stream()
+                            .filter(styleData ->
+                                    styleData.getUser().getUlid() == styleData.getUser().getUlid() &&
+                                            Objects.equals(styleData.getProduct().getPrid(), styleData.getProduct().getPrid()))
+                            .toList();
 
-                recommendRepository.save(recommendBuilder);
+                    int styleCount = toStyleRemove.size();
+
+                    Recommend recommendBuilder = Recommend.builder()
+                            .recommend_date(date)
+                            .user(style.getUser())
+                            .product(style.getProduct())
+                            .quantity(0)
+                            .click(0)
+                            .style(styleCount)
+                            .build();
+
+                    log.info("style builder : {}", recommendBuilder);
+
+                    recommendRepository.save(recommendBuilder);
+                }
+                else {
+                    return; //continue
+                }
 //                builderList.add(recommendBuilder);
             });
         }

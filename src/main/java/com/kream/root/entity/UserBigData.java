@@ -25,8 +25,8 @@ public class UserBigData extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_bigdata_seq_generator")
     private Long ub_id;
 
-//    @Column
-//    private LocalDate ub_date;
+    @Column(name="ub_date")
+    private LocalDate ubDate;
 
     @ManyToOne(targetEntity = UserListDTO.class, fetch = FetchType.LAZY)
     @JoinColumn(name="ub_ulid", referencedColumnName = "ulid")

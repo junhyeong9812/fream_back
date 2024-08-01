@@ -14,4 +14,14 @@ public class ParserFactory {
     public ReadLineContext<OrderData> ordersReadLineContext(){
         return new ReadLineContext<OrderData>( new OrderDataParser());
     }
+
+    @Bean
+    public ReadLineContext<ClickData> clickReadLineContext(){
+        return new ReadLineContext<ClickData>( new ClickDataParser());
+    }
+
+    @Bean
+    public ReadLineContext<StyleData> styleReadLineContext(){
+        return new ReadLineContext<StyleData>( new StyleDataParser());
+    }
 }
