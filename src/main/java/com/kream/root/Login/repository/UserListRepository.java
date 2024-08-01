@@ -21,10 +21,16 @@ import java.util.Optional;
 
 
 @Repository
-public interface UserListRepository extends JpaRepository<UserListDTO, Integer> { 
+public interface UserListRepository extends JpaRepository<UserListDTO, Integer> {
+    Optional<UserListDTO> findByPhone(String phone);
+    Optional<UserListDTO> findByUserIdAndPhone(String userId, String phone);
+    @Modifying
+    @Transactional
+    @Query("UPDATE UserListDTO u SET u.userPw = :password WHERE u.userId = :userId")
+    int updatePassword(@Param("userId") String userId, @Param("password") String password);
 
-
-
+    @Query("SELECT u FROM UserListDTO u JOIN u.styles s WHERE s.id = :styleId")
+    Optional<UserListDTO> findByStyleId(@Param("styleId") Long styleId);
 	UserListDTO getByUserId(String id);
 //    Optional<UserListDTO> findByUserId(String id);
     Optional<UserListDTO> findByUserId(String userId);
@@ -36,4 +42,8 @@ public interface UserListRepository extends JpaRepository<UserListDTO, Integer> 
     @Query("UPDATE UserListDTO u SET u.lastLoginTime = CURRENT_TIMESTAMP WHERE u.userId = :userId")
     void updateLastLoginTime(@Param("userId") 	String userId);
     Page<UserListDTO> findAll(Pageable pageable);
+    @Query("SELECT u FROM UserListDTO u JOIN u.boards b WHERE b.boardId = :boardId")
+    UserListDTO findUserByBoardId(@Param("boardId") Long boardId);
+
+
 }

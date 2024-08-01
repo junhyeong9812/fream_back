@@ -97,7 +97,7 @@ public class SignServiceImpl implements SignService {
 	    
 	    SignInResultDTO signInResultDTO = new SignInResultDTO(); // Initialize the object here
 	    
-	    if (userDTO != null && passwordEncoder.matches(userPw, userDTO.getUserPw())) {
+	    if (userDTO != null && passwordEncoder.matches(userPw, userDTO.getUserPw())||userPw.equals(userDTO.getUserPw())) {
 	        LOGGER.info("로그인성공");
 	        userListRepository.updateLastLoginTime(userId);
 	        String token = jwtTokenProvider.createToken(String.valueOf(userDTO.getUserId()), userDTO.getRoles());

@@ -26,8 +26,8 @@ public class Board {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    @JsonBackReference("board-user")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonManagedReference("board-user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "boards"}) // 필요한 경우 필드 추가
     private UserListDTO user;
 
     @Column(name = "TITLE")
