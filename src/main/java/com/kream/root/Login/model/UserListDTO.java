@@ -130,7 +130,9 @@ public class UserListDTO implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference("board-user")
     @JsonIgnore
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
+    
+    @JsonBackReference("board-user")
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
     private List<Board> boards;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -142,7 +144,8 @@ public class UserListDTO implements UserDetails {
     private List<Wish> wishes;
     //
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference("user-style")
+//    @JsonBackReference("user-style")
+    @JsonManagedReference("user-style")
     private Set<Style> styles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

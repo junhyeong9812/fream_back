@@ -1,6 +1,7 @@
 package com.kream.root.style.controller;
 
 import com.kream.root.Login.jwt.JwtTokenProvider;
+import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.entity.Style;
 import com.kream.root.entity.StyleReply;
 import com.kream.root.style.DTO.StyleDTO;
@@ -45,6 +46,11 @@ public class StyleController {
     public ResponseEntity<Style> getStyleById(@PathVariable Long id) {
         Optional<Style> style = styleService.getStyleById(id);
         return style.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @GetMapping("/by-style/{styleId}")
+    public ResponseEntity<UserListDTO> getUserByStyleId(@PathVariable Long styleId) {
+        Optional<UserListDTO> user = styleService.getUserByStyleId(styleId);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 

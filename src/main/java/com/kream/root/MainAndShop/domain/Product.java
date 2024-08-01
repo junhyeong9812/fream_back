@@ -14,6 +14,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -70,8 +71,9 @@ public class Product extends BaseEntity {
     private List<Wish> wishes = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference("product-style")
-    private Set<Style> styles;
+    @JsonManagedReference("product-style")
+//    @JsonBackReference("product-style")
+    private Set<Style> styles = new HashSet<>();
 
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference("product-priceHistory")

@@ -1,8 +1,12 @@
 package com.kream.root.order.repository;
 
+import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.MainAndShop.domain.Product;
 import com.kream.root.entity.Orders;
 import org.apache.ibatis.annotations.Param;
+import org.aspectj.weaver.ast.Or;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +23,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findByOrderDateBetween(LocalDateTime start, LocalDateTime end);
     long countByOrderDateBetween(LocalDateTime start, LocalDateTime end);
     List<Orders> findByUser_UserId(String userId);
+    Page<Orders>findAll(Pageable pageable);
 
 
     List<Orders> findByOrderDate(LocalDateTime dateTime);

@@ -68,13 +68,14 @@ public class KakaoLoginController {
             }
             log.info("userId : " + userId);
             // 리다이렉트 설정 -> 토큰 값과 userId를 전달, 프론트에서 cookie값 생성
-            String redirectUrl = "http://localhost:3000/yourTargetPage?jwtToken=" + jwtToken
+            String redirectUrl = "http://pinjun.xyz:3000/yourTargetPage?jwtToken=" + jwtToken
                     + "&loginCookie=" + userId;
             modelAndView.setViewName("redirect:" + redirectUrl);
             return modelAndView;
 
         } catch (Exception e) {
-            String redirectUrl = "/login";
+            System.out.println("e = " + e);
+            String redirectUrl = "http://pinjun.xyz:3000/join";
             modelAndView.setViewName("redirect:" + redirectUrl);
             return modelAndView;
 

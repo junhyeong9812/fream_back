@@ -33,6 +33,7 @@ public class StyleService {
     private final UserListRepository userRepository;
     private final ProductRepository productRepository;
 
+
     @Autowired
     public StyleService(StyleRepository styleRepository, StyleLikeRepository styleLikeRepository,
                         StyleReplyRepository styleReplyRepository, UserListRepository userRepository,
@@ -154,6 +155,9 @@ public class StyleService {
         if (reply != null) {
             styleReplyRepository.delete(reply);
         }
+    }
+    public Optional<UserListDTO> getUserByStyleId(Long styleId) {
+        return userRepository.findByStyleId(styleId);
     }
 
 }

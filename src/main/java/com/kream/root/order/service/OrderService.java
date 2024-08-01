@@ -394,7 +394,7 @@ public List<OrderDTO> getOrdersByUserId(String userId) {
             cleanedImgName = rawImgName.substring(2, rawImgName.length() - 2);
         }
         String[] imgNameArray = cleanedImgName.split("', '");
-        String mainImageUrl = "http://192.168.42.142:3001/admin/products/files/" + imgNameArray[0];
+        String mainImageUrl = "http://www.pinjun.xyz:3000/admin/products/files/" + imgNameArray[0];
 
         return OrderDTO.builder()
                 .orderId(order.getOrderId())
