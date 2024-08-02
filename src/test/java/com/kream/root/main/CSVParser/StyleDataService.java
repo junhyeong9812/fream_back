@@ -42,7 +42,7 @@ public class StyleDataService {
     @Autowired
     StyleRepository styleRepository;
 
-
+    @Transactional
     public void styleAdd() throws IOException {
         String fileName = "C:/Users/sorae/Fintech/Fintech_last_project/Recommender_system/DataBaseETLProcessing/kream_new_product_v2_recommend_styleUser_database.csv";
         log.info(fileName);
@@ -69,21 +69,21 @@ public class StyleDataService {
                     log.info("Order User Info : {}", orderUserList);
 
                         for(UserListDTO orderUser : orderUserList){
-//                            Style styleBuilder = Style.builder()
-//                                    .styleDate(start.plusDays(2)) // 2일 뒤에 style 작성
-//                                    .user(orderUser)
-//                                    .content("style is good!")
-//                                    .product(product).build();
-                            Style styleBuilder = new Style();
-                            styleBuilder.setStyleDate(start.plusDays(2));
-                            styleBuilder.setUser(orderUser);
-                            styleBuilder.setContent("style is good");
-                            styleBuilder.setProduct(product);
+                            Style styleBuilder = Style.builder()
+                                    .styleDate(start.plusDays(2)) // 2일 뒤에 style 작성
+                                    .user(orderUser)
+                                    .content("style is good!")
+                                    .product(product).build();
+//                            Style styleBuilder = new Style();
+//                            styleBuilder.setStyleDate(start.plusDays(2));
+//                            styleBuilder.setUser(orderUser);
+//                            styleBuilder.setContent("style is good");
+//                            styleBuilder.setProduct(product);
 
                             log.info("styleBuilder : {}", styleBuilder);
 
-//                            styleSaveList.add(styleBuilder);
-                        styleRepository.save(styleBuilder);
+                            styleSaveList.add(styleBuilder);
+//                        styleRepository.save(styleBuilder);
                         }
 
                     cnt[0] = cnt[0] + 1;
@@ -94,7 +94,7 @@ public class StyleDataService {
                     e.printStackTrace();
                 }
             });
-//            styleRepository.saveAll(styleSaveList);
+            styleRepository.saveAll(styleSaveList);
         } catch (Exception e) {
             log.error("Error reading order data file: {}", e.getMessage());
             e.printStackTrace();

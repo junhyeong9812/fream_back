@@ -36,7 +36,7 @@ public class recommendTest {
 
 
     @Test
-//    @Rollback(true)
+    @Rollback(true)
     public void userBigDataAdd() throws IOException {
         clickDataService.insertLargeVolumeData();
     }
@@ -46,7 +46,7 @@ public class recommendTest {
 
     @Test
 //    @Rollback
-    public void styleDataAdd () throws  IOException {
+    public void styleDataAdd () throws IOException {
         styleDataService.styleAdd();
     }
 

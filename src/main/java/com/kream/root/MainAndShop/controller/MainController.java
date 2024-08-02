@@ -11,10 +11,7 @@ import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +68,32 @@ public class MainController {
 
         List<OneProductDTO> productList = ms.topProductList(rcmPList);
 //        System.out.println("home데이터");
+        productList.forEach(d -> log.info(d));
+        return productList;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Operation(summary = "Main Data", description = "메인 데이터 전송")
+    @ApiResponse(responseCode = "200")
+    @GetMapping("/{gender}")
+    public List<OneProductDTO> genderRecommend(@PathVariable String gender){
+        log.info("controller gender : ");
+        List<String> pridList = new ArrayList<>();
+        try{
+            //추천 상품 보내는 쿼리와 연결
+            //기본값은 남성, 20대, 로그인 시 해당 성별과 나잇대가 request로 들어와야 함
+            pridList = ms.getGenderRecommendList(gender);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        // 산출되는 상품 리스트
+        List<Long> rcmPList = pridList.stream().map(Long::parseLong)
+                .collect(Collectors.toList());
+        log.info(gender+" 추천 리스트 : "+ rcmPList);
+//        List<Long> pridList = LongStream.rangeClosed(1L, 10L).boxed().collect(Collectors.toList());
+
+        List<OneProductDTO> productList = ms.topProductList(rcmPList);
         productList.forEach(d -> log.info(d));
         return productList;
     }

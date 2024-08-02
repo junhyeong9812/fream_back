@@ -83,5 +83,14 @@ public class StyleRepository {
         return query.getSingleResult();
     }
 
+    @Transactional
+    public <T> void saveAll(List<T> entities) {
+        final int batchSize = 50; // 배치 크기 조정 가능
+        for (int i = 0; i < entities.size(); i++) {
+            entityManager.persist(entities.get(i));
+
+        }
+    }
+
 
 }

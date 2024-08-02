@@ -14,4 +14,5 @@ public interface mainService {
     public List<OneProductDTO> topProductList(List<Long> pridList);
     public List<String>  getRecommendList(int age, String Gender) throws JsonProcessingException;
     public void createRecommendTable(LocalDate date);
+    public List<String> getGenderRecommendList(String gender) throws JsonProcessingException;
 }
