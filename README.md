@@ -46,6 +46,7 @@ Git
 <br>
 <br>
 ## 구현 기능 동영상
+
 <h3>로그인 페이지 (구영모)</h3>
 
 
@@ -89,40 +90,40 @@ https://github.com/user-attachments/assets/f05b4c46-2870-4547-bc19-5e95e1640d76
 ## 웹사이트 스크린샷
 <img center width="800" alt="스크린샷 2024-08-01 오전 11 30 00" src="https://github.com/user-attachments/assets/b4a08dfe-7c20-4238-a115-aff09ef9fd75">
 <br>
-<h3>로그인 페이지 (설송희)</h3>
+<h3>로그인 페이지 (구영모)</h3>
 <img width="996" alt="스크린샷 2024-08-01 오후 2 26 18" src="https://github.com/user-attachments/assets/1a160073-6fa1-4555-aa87-6b1d005587ac">
 
 <br>
-<h3>회원가입 페이지 (설송희)</h3>
+<h3>회원가입 페이지 (구영모)</h3>
 <img width="999" alt="스크린샷 2024-08-01 오후 2 26 25" src="https://github.com/user-attachments/assets/8be3126d-8932-40e7-8069-3dbe86b1debb">
 <br>
-<h3>마이 페이지 (설송희)</h3>
+<h3>마이 페이지 (이소래)</h3>
 <img width="1015" alt="스크린샷 2024-08-01 오후 2 31 07" src="https://github.com/user-attachments/assets/0dacb827-3868-47fc-a89a-2a23b52043fb">
 <br>
-<h3>메인 페이지 (김재환)</h3>
+<h3>메인 페이지 (이소래)</h3>
 <img width="486" alt="스크린샷 2024-08-01 오후 1 50 52" src="https://github.com/user-attachments/assets/5601b694-1086-405f-8a62-e3ba9f45a381">
 <br>
-<h3>Shop 페이지 (김재환)</h3> 
+<h3>Shop 페이지 (이소래)</h3> 
 <img width="503" alt="스크린샷 2024-08-01 오후 1 50 08" src="https://github.com/user-attachments/assets/a2ac224c-9c23-4a63-9a9e-2ce8fb72f0cb">
 <br>
 
-<h3>상세 페이지 (이태영)</h3>
+<h3>상세 페이지 (박지혜)</h3>
 <img width="1089" alt="스크린샷 2024-08-01 오후 2 08 05" src="https://github.com/user-attachments/assets/8dc8617e-f9d7-4112-9b04-e4eefe16044c">
 <br>
 <img width="1109" alt="스크린샷 2024-08-01 오후 2 08 29" src="https://github.com/user-attachments/assets/080aaab4-1e38-4f94-addb-87414bea6353">
 <br>
-<h3>구매 페이지 (이태영)</h3>
+<h3>구매 페이지 (김준형)</h3>
 <img width="1109" src="https://github.com/user-attachments/assets/c17fad51-1d67-460e-a2db-acf3a35250eb">
 <br>
-<h3>판매 페이지 (이태영)</h3>
+<h3>판매 페이지 (김준형)</h3>
 <img width="1109" src="https://github.com/user-attachments/assets/2ea70401-eea0-4ed9-92d3-e16a8d2c40a5">
 <br>
-<h3>구매 내역 페이지 (이태영)</h3>
+<h3>구매 내역 페이지 (김준형)</h3>
 <img width="1109" src="https://github.com/user-attachments/assets/34731cad-0b77-4a44-869d-2265121a298e">
 <br>
 
 
-<h3>공지사항 게시판 (김재환)</h3>
+<h3>공지사항 게시판 (김준형)</h3>
 <img width="1296" alt="스크린샷 2024-07-31 오후 5 38 26" src="https://github.com/user-attachments/assets/e3e3d5f4-61c9-411d-8930-c712399f411d">
 <br>
 <h3>404 에러 페이지 (김준형)</h3>
