@@ -91,7 +91,6 @@ https://github.com/user-attachments/assets/7eac48f5-289e-4b3a-91c6-6475d838740e
 <h3>구매 페이지 (김준형)</h3>
 https://github.com/user-attachments/assets/21f8d4c4-476f-49d0-8ac7-9835fa465303
 <h3>판매 페이지 (김준형)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
 https://github.com/user-attachments/assets/5bf1b069-5317-4f45-a870-262a2c2f3feb
 
 <br>
@@ -105,26 +104,7 @@ https://github.com/user-attachments/assets/f05b4c46-2870-4547-bc19-5e95e1640d76
 ## 웹사이트 스크린샷
 <img center width="800" alt="스크린샷 2024-08-01 오전 11 30 00" src="https://github.com/user-attachments/assets/b4a08dfe-7c20-4238-a115-aff09ef9fd75">
 <br>
-<<<<<<< HEAD
-<h3>로그인 페이지 (설송희)</h3>
-<img width="996" alt="스크린샷 2024-08-01 오후 2 26 18" src="https://github.com/user-attachments/assets/1a160073-6fa1-4555-aa87-6b1d005587ac">
 
-<br>
-<h3>회원가입 페이지 (설송희)</h3>
-<img width="999" alt="스크린샷 2024-08-01 오후 2 26 25" src="https://github.com/user-attachments/assets/8be3126d-8932-40e7-8069-3dbe86b1debb">
-<br>
-<h3>마이 페이지 (설송희)</h3>
-<img width="1015" alt="스크린샷 2024-08-01 오후 2 31 07" src="https://github.com/user-attachments/assets/0dacb827-3868-47fc-a89a-2a23b52043fb">
-<br>
-<h3>메인 페이지 (김재환)</h3>
-<img width="486" alt="스크린샷 2024-08-01 오후 1 50 52" src="https://github.com/user-attachments/assets/5601b694-1086-405f-8a62-e3ba9f45a381">
-<br>
-<h3>Shop 페이지 (김재환)</h3> 
-<img width="503" alt="스크린샷 2024-08-01 오후 1 50 08" src="https://github.com/user-attachments/assets/a2ac224c-9c23-4a63-9a9e-2ce8fb72f0cb">
-<br>
-
-<h3>상세 페이지 (이태영)</h3>
-=======
 <h3>로그인 페이지 (구영모)</h3>
 <img width="996" alt="스크린샷 2024-08-01 오후 2 26 18" src="https://github.com/user-attachments/assets/1a160073-6fa1-4555-aa87-6b1d005587ac">
 
