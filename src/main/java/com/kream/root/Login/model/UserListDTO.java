@@ -131,8 +131,8 @@ public class UserListDTO implements UserDetails {
 //    @JsonManagedReference("board-user")
     @JsonIgnore
     
-    @JsonBackReference("board-user")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
+    @JsonManagedReference("board-user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
     private List<Board> boards;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

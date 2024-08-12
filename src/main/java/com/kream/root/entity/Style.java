@@ -36,13 +36,14 @@ public class Style {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "USERID",
             foreignKey = @ForeignKey(name = "FK_STYLE_USER"))
-    @JsonManagedReference("user-style")
+    @JsonBackReference("user-style")
     private UserListDTO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "PRID",
             foreignKey = @ForeignKey(name = "FK_STYLE_PRODUCT"))
-    @JsonManagedReference("product-style")
+//    @JsonManagedReference("product-style")
+    @JsonBackReference("product-style")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
     @Column(name = "Style_Img_Name")

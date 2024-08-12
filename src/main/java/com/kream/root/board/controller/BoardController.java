@@ -55,15 +55,25 @@ public class BoardController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Board> getBoardById(@PathVariable Long id) {
-        Optional<Board> board = boardService.getBoardById(id);
-        return board.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Board> getBoardById(@PathVariable Long id) {
+//        Optional<Board> board = boardService.getBoardById(id);
+//        return board.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+//    }
+
+//    @GetMapping
+//    public ResponseEntity<List<Board>> getAllBoards() {
+//        return ResponseEntity.ok(boardService.getAllBoards());
+//    }
 
     @GetMapping
-    public ResponseEntity<List<Board>> getAllBoards() {
-        return ResponseEntity.ok(boardService.getAllBoards());
+    public ResponseEntity<List<BoardDTO>> getAllBoards() {
+        return ResponseEntity.ok(boardService.getAllBoardsWithUserDetails());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardDTO> getBoardById(@PathVariable Long id) {
+        Optional<BoardDTO> board = boardService.getBoardDTOById(id);
+        return board.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -91,6 +101,7 @@ public class BoardController {
         if (!optionalBoard.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+
 
         Board board = optionalBoard.get();
         board.setTitle(title);

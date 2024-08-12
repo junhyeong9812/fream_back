@@ -1,6 +1,7 @@
 package com.kream.root.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kream.root.Login.model.UserListDTO;
@@ -26,8 +27,9 @@ public class Board {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    @JsonManagedReference("board-user")
+    @JsonBackReference("board-user")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "boards"}) // 필요한 경우 필드 추가
+    @JsonIgnore
     private UserListDTO user;
 
     @Column(name = "TITLE")

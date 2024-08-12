@@ -71,8 +71,8 @@ public class Product extends BaseEntity {
     private List<Wish> wishes = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("product-style")
 //    @JsonBackReference("product-style")
+    @JsonManagedReference("product-style")
     private Set<Style> styles = new HashSet<>();
 
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

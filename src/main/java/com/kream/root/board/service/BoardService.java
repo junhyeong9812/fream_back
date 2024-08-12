@@ -4,6 +4,7 @@ package com.kream.root.board.service;
 import com.kream.root.Login.model.UserListDTO;
 import com.kream.root.Login.repository.UserListRepository;
 import com.kream.root.board.DTO.BoardDTO;
+import com.kream.root.board.DTO.UserDTO;
 import com.kream.root.board.repository.BoardRepository;
 import com.kream.root.entity.Board;
 import jakarta.persistence.EntityManager;
@@ -30,12 +31,45 @@ public class BoardService {
     public Optional<Board> getBoardById(Long id) {
         return boardRepository.findById(id);
     }
+@Transactional
+public Optional<BoardDTO> getBoardDTOById(Long id) {
+    return boardRepository.findById(id).map(this::convertToDTO);
+}
 
-    @Transactional
-    public List<Board> getAllBoards() {
-        return boardRepository.findAll();
-//        List<Board> boards = boardRepository.findAll();
-//        return boards.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+    //    @Transactional
+////    public List<Board> getAllBoards() {
+////        return boardRepository.findAll();
+//////        List<Board> boards = boardRepository.findAll();
+//////        return boards.stream().map(this::convertToDTO).collect(Collectors.toList());
+////    }
+@Transactional
+public List<BoardDTO> getAllBoardsWithUserDetails() {
+    List<Board> boards = boardRepository.findAll();
+    return boards.stream().map(this::convertToDTO).collect(Collectors.toList());
+}
+    private UserDTO convertToUserDTO(UserListDTO user) {
+        if (user == null) return null;
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUlid(user.getUlid());
+        userDTO.setUserId(user.getUserId());
+        userDTO.setUserName(user.getUserName());
+        userDTO.setEmail(user.getEmail());
+        return userDTO;
+    }
+
+    private BoardDTO convertToDTO(Board board) {
+        UserListDTO user = userListRepository.findById(board.getUser().getUlid()).orElse(null);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new BoardDTO(
+                board.getBoardId(),
+                board.getTitle(),
+                board.getContent(),
+                board.getCreatedDate(),
+                convertToUserDTO(user)
+        );
     }
 
     public void deleteBoard(Long id) {

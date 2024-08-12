@@ -50,10 +50,10 @@ public class OrderService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("4555333718886873")
+    @Value("apiKey")
     private String apiKey;
 
-    @Value("bAJaWBq6CWDYZn0HOXCi5cvDhTZLZrkVJUwWFBmHuvxGC5ZiFUqQz5qy2sOEd9yAOCIZ2vCwWxcRQCTC")
+    @Value("secretKey")
     private String apiSecret;
 
     @Autowired

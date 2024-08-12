@@ -99,7 +99,7 @@ public class AuthRestController {
 	  
 	  
 	  
-	  @PostMapping(value = "/registerCheck")
+	  @PostMapping(value = "/registerCheck", consumes = "application/json")
 	  public SignUpResultDTO registerCheck(@RequestBody UserListDTO userDTO) {
 	      String role = "normal"; // admin 만 아니면 어떤 스트링이던지 상관없음
 	      System.out.println("userId:" + userDTO.getUserId());

@@ -15,5 +15,6 @@ public class BoardDTO {
     private String title;
     private String content;
     private LocalDateTime createdDate;
-    private UserListDTO user;
+//    private UserListDTO user;
+private UserDTO user; // UserListDTO 대신 UserDTO 사용
 }
