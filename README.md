@@ -1,7 +1,7 @@
 <h1>크림 웹페이지 클론코딩 프로젝트</h1>
 
 <h1>크림 웹페이지 클론코딩 프로젝트-백엔드</h1>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
+
 
 클론코딩은 개발 환경 셋팅부터 시작하였으며, 하단 시연 영상은 모두 백엔드와의 데이터 연동을 통해 실제 서비스에서 이용되는 수준으로 구현하였습니다.
 프로젝트 진행됨에 따라 디자인과 아래 서술한 기능들만 선택하여 구현했습니다.
@@ -21,13 +21,13 @@ Back-End
 김준형,구영모,이소래,박지혜
 <br>
 <br>
-<<<<<<< HEAD
+
 Back-End code
 https://github.com/junhyeong9812/fream_back
-=======
+
 Front-End code
 [https://github.com/dlxodud123/fream_front](https://github.com/dlxodud123/fream_front)
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
+
 <br>
 <br>
 PPT URL
@@ -57,7 +57,7 @@ Git
 
 
 <h3>로그인 페이지 (구영모)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
+
 
 
 https://github.com/user-attachments/assets/3cf4b418-322c-46c2-a777-96f3914968a1
@@ -65,7 +65,7 @@ https://github.com/user-attachments/assets/3cf4b418-322c-46c2-a777-96f3914968a1
 
 <br>
 <h3>회원가입 페이지 (구영모)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
+
 
 
 https://github.com/user-attachments/assets/116b3a44-ef99-40c4-a0ca-345a57a77d1c
@@ -143,20 +143,10 @@ https://github.com/user-attachments/assets/f05b4c46-2870-4547-bc19-5e95e1640d76
 <br>
 
 <h3>상세 페이지 (박지혜)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
 <img width="1089" alt="스크린샷 2024-08-01 오후 2 08 05" src="https://github.com/user-attachments/assets/8dc8617e-f9d7-4112-9b04-e4eefe16044c">
 <br>
 <img width="1109" alt="스크린샷 2024-08-01 오후 2 08 29" src="https://github.com/user-attachments/assets/080aaab4-1e38-4f94-addb-87414bea6353">
 <br>
-<<<<<<< HEAD
-<h3>구매 페이지 (이태영)</h3>
-<img width="1109" src="https://github.com/user-attachments/assets/c17fad51-1d67-460e-a2db-acf3a35250eb">
-<br>
-<h3>판매 페이지 (이태영)</h3>
-<img width="1109" src="https://github.com/user-attachments/assets/2ea70401-eea0-4ed9-92d3-e16a8d2c40a5">
-<br>
-<h3>구매 내역 페이지 (이태영)</h3>
-=======
 <h3>구매 페이지 (김준형)</h3>
 <img width="1109" src="https://github.com/user-attachments/assets/c17fad51-1d67-460e-a2db-acf3a35250eb">
 <br>
@@ -164,16 +154,13 @@ https://github.com/user-attachments/assets/f05b4c46-2870-4547-bc19-5e95e1640d76
 <img width="1109" src="https://github.com/user-attachments/assets/2ea70401-eea0-4ed9-92d3-e16a8d2c40a5">
 <br>
 <h3>구매 내역 페이지 (김준형)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
 <img width="1109" src="https://github.com/user-attachments/assets/34731cad-0b77-4a44-869d-2265121a298e">
 <br>
 
 
-<<<<<<< HEAD
-<h3>공지사항 게시판 (김재환)</h3>
-=======
+
 <h3>공지사항 게시판 (김준형)</h3>
->>>>>>> 62a7288a107e98f1be562ce972061bf42e500f6a
+
 <img width="1296" alt="스크린샷 2024-07-31 오후 5 38 26" src="https://github.com/user-attachments/assets/e3e3d5f4-61c9-411d-8930-c712399f411d">
 <br>
 <h3>404 에러 페이지 (김준형)</h3>
